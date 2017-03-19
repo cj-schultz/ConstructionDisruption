@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MenuTitle
+  m_Name: mat_MenuItems
   m_Shader: {fileID: 4800000, guid: 8e6b9842dbb1a5a4887378afab854e63, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -223,7 +223,7 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 0}
     - first:
         name: _FaceColor
-      second: {r: 1, g: 0.5651116, b: 0.014705896, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _GlowColor
       second: {r: 0.625, g: 0.5382544, b: 0.078125, a: 0.5019608}
@@ -232,7 +232,7 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 0}
     - first:
         name: _OutlineColor
-      second: {r: 1, g: 0.6827586, b: 0, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _ReflectFaceColor
       second: {r: 0, g: 0, b: 0, a: 1}
@@ -241,7 +241,7 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _SpecColor
-      second: {r: 0.7794118, g: 0.5602121, b: 0.44128463, a: 1}
+      second: {r: 0.2352941, g: 0.22968619, b: 0.22664359, a: 1}
     - first:
         name: _SpecularColor
       second: {r: 1, g: 1, b: 1, a: 1}

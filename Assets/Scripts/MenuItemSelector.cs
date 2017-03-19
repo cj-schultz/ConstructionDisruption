@@ -3,12 +3,22 @@ using TMPro;
 using UnityEngine;
 
 // Controls the selection of menu items
+[RequireComponent(typeof(AudioSource))]
 public class MenuItemSelector : MonoBehaviour
 {
+    [Header("Sounds")]
+    public AudioClip upSound;
+    public AudioClip downSound;
+
+    [Header("Item selection stuff")]
     [SerializeField]
     private TextMeshPro[] menuItems;
     [SerializeField]
     private Color selectionColor;
+    [SerializeField]
+    private Color lowHighlightColor;
+
+    private AudioSource audioSource;
 
     private TextMeshPro currentSelection;
     private int currentSelectionIndex;
@@ -16,6 +26,8 @@ public class MenuItemSelector : MonoBehaviour
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
         currentSelectionIndex = 0;
 
         // Default the selection to the first item
@@ -40,6 +52,8 @@ public class MenuItemSelector : MonoBehaviour
                 currentSelectionIndex++;
             }
 
+            audioSource.PlayOneShot(downSound);
+
             SelectCurrentIndex();
         }
         else if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
@@ -53,6 +67,9 @@ public class MenuItemSelector : MonoBehaviour
             {
                 currentSelectionIndex--;
             }
+
+            // Play this sound quieter cause it's a little loud
+            audioSource.PlayOneShot(upSound, .5f);
 
             SelectCurrentIndex();
         }
@@ -72,26 +89,26 @@ public class MenuItemSelector : MonoBehaviour
     // Lerps between selection color and normal color
     private IEnumerator GlowCurrentSelection()
     {
-        // Target color starts as the normal color because we already
-        // set the current selection to the selection color.
-        Color targetColor = normalColor;
+        // Target color starts as the low highlight color because we 
+        // already set the current selection to the selection color.
+        Color targetColor = lowHighlightColor;
 
         while(true)
         {
             while (!ColorDifferenceLessThan(targetColor, currentSelection.color, 0.1f))
             {
-                currentSelection.color = Color.Lerp(currentSelection.color, targetColor, Time.deltaTime * 5f);
+                currentSelection.color = Color.Lerp(currentSelection.color, targetColor, Time.deltaTime * 3f);
                 yield return null;
             }
 
             // Change the target color
-            if (targetColor == normalColor)
+            if (targetColor == lowHighlightColor)
             {
                 targetColor = selectionColor;
             }
             else
             {
-                targetColor = normalColor;
+                targetColor = lowHighlightColor;
             }
         }
     }
