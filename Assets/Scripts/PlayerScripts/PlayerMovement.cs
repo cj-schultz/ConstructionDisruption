@@ -1,29 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
-
+public class PlayerMovement : MonoBehaviour
+{
     public float speed;
     public float turnSpeed;
-    public int lengthOfYell;
+    public float yellCooldown = 2; // in seconds
     public GameObject yellPrefab;
     public Transform yellFirePoint;
 
     private Transform t = null;
     private Rigidbody r = null;
-    private int x = 0; // frame counter
+    private float yellCooldownTimeLeft;
 
     void Start ()
     {
         t = this.GetComponent<Transform>();
         r = this.GetComponent<Rigidbody>();
+        yellCooldownTimeLeft = 0f;
     }
 	
 	void Update ()
     {
         Vector3 direction = Vector3.zero;
         Quaternion rot = t.rotation;
+
+        yellCooldownTimeLeft -= Time.deltaTime;
 
         // Standard movement stuff, use force to move so he doesn't phase through walls
         if (Input.GetKey(KeyCode.W))
@@ -44,21 +45,14 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            if (x == 0) // only yell if no other yell is active
+            // Yell if the cooldown is up
+            if (yellCooldownTimeLeft <= 0)
             { 
                 GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, t.localRotation) as GameObject;
-                x++;
+                yellCooldownTimeLeft = yellCooldown;
             }
         }
-        if(x != 0) // counts frames if there is an active yell
-        {
-            x++;
-            if(x == lengthOfYell) // allows for another yell if frame count is hit
-            {
-                x = 0;
-            }
-        }
-
+        
         t.position += direction * Time.deltaTime * speed;
         t.localRotation = rot;
     }

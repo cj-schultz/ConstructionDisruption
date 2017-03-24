@@ -340,7 +340,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528589362448816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.9, z: 0}
+  m_LocalPosition: {x: 0, y: -0.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4481470787309690}
@@ -478,7 +478,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1743096972996786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.38, y: 0, z: 1.64}
+  m_LocalPosition: {x: 10.38, y: 0.5, z: 1.64}
   m_LocalScale: {x: 0.1578374, y: 0.15783742, z: 0.15783742}
   m_Children:
   - {fileID: 4141263907983498}
@@ -551,7 +551,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1911011504631688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.88, z: 6.22}
+  m_LocalPosition: {x: 0, y: 6.69, z: 7.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4555843654079164}
@@ -589,7 +589,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -646,8 +646,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  turnSpeed: 50
-  lengthOfYell: 70
+  turnSpeed: 75
+  yellCooldown: 1
   yellPrefab: {fileID: 1885338381402090, guid: b1299d9687ea3404bb6857c65f2d652f, type: 2}
   yellFirePoint: {fileID: 4844457240497882}
 --- !u!124 &124407461316279664

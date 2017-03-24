@@ -130,28 +130,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114725548698551772, guid: 40fb34958ad1c3f4b942351c3fa32816,
-        type: 2}
-      propertyPath: turnSpeed
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 114725548698551772, guid: 40fb34958ad1c3f4b942351c3fa32816,
-        type: 2}
-      propertyPath: lengthOfYell
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4141263907983498, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844457240497882, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 7.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844457240497882, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 6.69
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
   m_IsPrefabParent: 0

@@ -4,11 +4,11 @@ public class YellPhysics : MonoBehaviour
 {
     public float speed;
     public float yellExpansion;
-    public int lengthOfYell;
+    public int lengthOfYell; // in seconds
 
     private float centerOffsetY;
     private Rigidbody rb = null;
-    private int x = 0; // frame counter
+    private float secondsElapsed = 0;
 
 	void Start ()
     {
@@ -20,7 +20,7 @@ public class YellPhysics : MonoBehaviour
 	void Update ()
     {
         Vector3 direction = Vector3.zero;
-        if (x < lengthOfYell) // the yell will stay active for lengthOfYell amount of frames
+        if (secondsElapsed < lengthOfYell) // the yell will stay active for lengthOfYell amount of frames
         {
             transform.position = Vector3.Lerp(transform.position, transform.forward + transform.position, Time.deltaTime * speed);
         }
@@ -28,8 +28,8 @@ public class YellPhysics : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-        x++;
+
+        secondsElapsed += Time.deltaTime;
 	}
 
     void OnTriggerEnter(Collider other)
