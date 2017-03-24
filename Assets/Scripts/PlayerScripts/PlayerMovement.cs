@@ -7,11 +7,12 @@ public class PlayerMovement : MonoBehaviour {
     public float speed;
     public float turnSpeed;
     public int lengthOfYell;
-    public GameObject yell;
-    Vector3 yellOffset = new Vector3(0, 7, 0);
+    public GameObject yellPrefab;
+    public Transform yellFirePoint;
+
     private Transform t = null;
     private Rigidbody r = null;
-    int x = 0; // frame counter
+    private int x = 0; // frame counter
 
     void Start ()
     {
@@ -45,8 +46,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (x == 0) // only yell if no other yell is active
             { 
-                GameObject yellBlock = Instantiate(yell, t.position + yellOffset,
-                                        t.localRotation) as GameObject;
+                GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, t.localRotation) as GameObject;
                 x++;
             }
         }
