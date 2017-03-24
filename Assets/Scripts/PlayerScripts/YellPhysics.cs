@@ -1,21 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class YellPhysics : MonoBehaviour
 {
-    public GameObject yellBlock;
     public float speed;
     public float yellExpansion;
     public int lengthOfYell;
-    private Transform t = null;
-    private Rigidbody r = null;
-    int x = 0; // frame counter
+
+    private float centerOffsetY;
+    private Rigidbody rb = null;
+    private int x = 0; // frame counter
 
 	void Start ()
     {
-        t = this.GetComponent<Transform>();
-        r = this.GetComponent<Rigidbody>();
+        rb = this.GetComponent<Rigidbody>();
+        centerOffsetY = transform.localScale.y / 2;
+        transform.position = new Vector3(transform.position.x, transform.position.y + centerOffsetY, transform.position.z);
     }  
 	
 	void Update ()
@@ -23,16 +22,23 @@ public class YellPhysics : MonoBehaviour
         Vector3 direction = Vector3.zero;
         if (x < lengthOfYell) // the yell will stay active for lengthOfYell amount of frames
         {
-            r.AddForce(t.forward * speed, ForceMode.VelocityChange);
-            yellBlock.transform.localScale += new Vector3(yellExpansion, yellExpansion, 0);
+            transform.position = Vector3.Lerp(transform.position, transform.forward + transform.position, Time.deltaTime * speed);
         }
         else
         {
-            Destroy(yellBlock);
+            Destroy(gameObject);
         }
-        t.position += direction * Time.deltaTime * speed;
+        
         x++;
 	}
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Enemy")
+        {
+            other.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
