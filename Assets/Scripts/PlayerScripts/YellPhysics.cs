@@ -4,7 +4,7 @@ public class YellPhysics : MonoBehaviour
 {
     public float speed;
     public float yellExpansion;
-    public int lengthOfYell; // in seconds
+    public float lengthOfYell; // in seconds
 
     private float centerOffsetY;
     private Rigidbody rb = null;
@@ -20,17 +20,19 @@ public class YellPhysics : MonoBehaviour
 	void Update ()
     {
         Vector3 direction = Vector3.zero;
-        if (secondsElapsed < lengthOfYell) // the yell will stay active for lengthOfYell amount of frames
+        Debug.Log(secondsElapsed);
+        if (secondsElapsed < lengthOfYell) // the yell will stay active for lengthOfYell amount of seconds
         {
             transform.position = Vector3.Lerp(transform.position, transform.forward + transform.position, Time.deltaTime * speed);
         }
         else
         {
+            
             Destroy(gameObject);
         }
 
         secondsElapsed += Time.deltaTime;
-	}
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -38,16 +40,9 @@ public class YellPhysics : MonoBehaviour
         {
             other.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        /*
-          if yell hits worker
-            use addforce to puch him back
-          otherwise
-            stop the yell
-            so you can't yell through walls
-        */
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

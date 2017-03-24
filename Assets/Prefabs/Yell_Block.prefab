@@ -122,4 +122,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   yellExpansion: 0.2
-  lengthOfYell: 70
+  lengthOfYell: 0.7
