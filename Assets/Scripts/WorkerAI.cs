@@ -13,14 +13,14 @@ Workers also need a NavMeshAgent placed on them for this to function. A NavMesh 
 public class WorkerAI : MonoBehaviour {
 
 	//References to the resource and the foundation that the worker will move between
-	GameObject ResourceObject;
-	GameObject FoundationObject;
+	public GameObject ResourceObject;
+	public GameObject FoundationObject;
 	//The maximum distance the worker can be and still interact with the object
-	float ResourceMaxDistance;
-	float FoundationMaxDistance;
-	//How long (in seconds) it takes to collect or drop off resources
-	float CollectTime;
-	float DepositTime;
+	public float ResourceMaxDistance;
+	public float FoundationMaxDistance;
+    //How long (in seconds) it takes to collect or drop off resources
+    public float CollectTime;
+    public float DepositTime;
 
 	//0 for not moving, 1 for moving to resource, 2 for moving to foundation
 	private int NavDest;
