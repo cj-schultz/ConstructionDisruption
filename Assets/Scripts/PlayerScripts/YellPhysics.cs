@@ -24,6 +24,7 @@ public class YellPhysics : MonoBehaviour
         if (secondsElapsed < lengthOfYell) // the yell will stay active for lengthOfYell amount of seconds
         {
             transform.position = Vector3.Lerp(transform.position, transform.forward + transform.position, Time.deltaTime * speed);
+            //gameObject.transform.localScale += new Vector3(yellExpansion, yellExpansion, 0);
         }
         else
         {
