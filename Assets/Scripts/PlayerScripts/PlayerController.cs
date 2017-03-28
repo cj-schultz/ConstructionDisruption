@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float turnSpeed;
@@ -56,4 +56,9 @@ public class PlayerMovement : MonoBehaviour
         t.position += direction * Time.deltaTime * speed;
         t.localRotation = rot;
     }
+
+	public float GetYellCooldownTimeLeft()
+	{
+		return yellCooldownTimeLeft;
+	}
 }

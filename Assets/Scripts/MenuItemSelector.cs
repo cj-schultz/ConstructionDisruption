@@ -7,8 +7,10 @@ using UnityEngine;
 public class MenuItemSelector : MonoBehaviour
 {
     [Header("Sounds")]
-    public AudioClip upSound;
-    public AudioClip downSound;
+	[SerializeField]
+	private AudioClip upSound;
+	[SerializeField]
+	private AudioClip downSound;
 
     [Header("Item selection stuff")]
     [SerializeField]
