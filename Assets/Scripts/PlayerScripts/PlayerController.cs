@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed;
-    public float turnSpeed;
-    public float yellCooldown = 2; // in seconds
+    public float turnSpeed;   
     public GameObject yellPrefab;
     public Transform yellFirePoint;
 
-    private Transform t = null;
-    private Rigidbody r = null;
-    private float yellCooldownTimeLeft;
+    public float yellCooldown = 2; // in seconds
+    // Make this public to read, but privite to write
+    public float yellCooldownTimeLeft { get; private set; }
 
-    void Start ()
+    private Transform t = null;
+    private Rigidbody r = null;    
+
+    void Awake ()
     {
         t = this.GetComponent<Transform>();
         r = this.GetComponent<Rigidbody>();
@@ -24,7 +26,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = Vector3.zero;
         Quaternion rot = t.rotation;
 
-        yellCooldownTimeLeft -= Time.deltaTime;
+        if(yellCooldownTimeLeft >= 0)
+        {
+            yellCooldownTimeLeft -= Time.deltaTime;
+        }        
 
         // Standard movement stuff, use force to move so he doesn't phase through walls
         if (Input.GetKey(KeyCode.W))
