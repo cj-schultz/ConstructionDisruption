@@ -73,6 +73,10 @@ public class MenuItemSelector : MonoBehaviour
 
             SelectCurrentIndex();
         }
+        else if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+        {
+            // @TODO: Select the current menu item with return or space bar        
+        }
     }
 
     private void SelectCurrentIndex()

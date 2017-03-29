@@ -20,7 +20,7 @@ public class YellPhysics : MonoBehaviour
 	void Update ()
     {
         Vector3 direction = Vector3.zero;
-        Debug.Log(secondsElapsed);
+        
         if (secondsElapsed < lengthOfYell) // the yell will stay active for lengthOfYell amount of seconds
         {
             transform.position = Vector3.Lerp(transform.position, transform.forward + transform.position, Time.deltaTime * speed);
