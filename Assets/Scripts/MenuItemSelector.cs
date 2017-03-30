@@ -6,9 +6,14 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class MenuItemSelector : MonoBehaviour
 {
+    [SerializeField]
+    private SceneFader sceneFader;
+
     [Header("Sounds")]
-    public AudioClip upSound;
-    public AudioClip downSound;
+    [SerializeField]
+    private AudioClip upSound;
+    [SerializeField]
+    private AudioClip downSound;
 
     [Header("Item selection stuff")]
     [SerializeField]
@@ -75,7 +80,11 @@ public class MenuItemSelector : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
         {
-            // @TODO: Select the current menu item with return or space bar        
+            // @TODO: Select the current menu item with return or space bar
+            if(currentSelectionIndex == 0)
+            {
+                sceneFader.FadeTo("Level1");
+            }
         }
     }
 

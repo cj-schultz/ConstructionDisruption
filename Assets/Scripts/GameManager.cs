@@ -4,21 +4,23 @@ public class GameManager : MonoBehaviour
 {
     [Header("Component references")]
     [SerializeField]
+    private SceneFader sceneFader;
+    [SerializeField]
     private PlayerUI playerUI;
 
     [Header("Game Variables")]
     // The hour the current day should start at
     // Note: This is always assumed to be AM
     [SerializeField]
-    private float startHour; 
+    private int startHour; 
     // The hour that the current day should end at
     // Note: This is always assumed to be AM
     [SerializeField]
-    private float endHour; 
+    private int endHour; 
 
     void Awake()
     {
-
+        playerUI.StartCountingTime(startHour, endHour);
     }
 
     void OnEnable()
@@ -33,6 +35,6 @@ public class GameManager : MonoBehaviour
 
     private void HandleDayEnd()
     {
-
+        sceneFader.FadeTo("MainMenu");
     }
 }

@@ -25,9 +25,11 @@ public class PlayerUI : MonoBehaviour
 
     private int currentHour;
     private int currentMinutes;
-    private bool morning;
+    private bool isMorning;
     private float secondsElapsedForCurrentHour;
     private float secondsToQuaterHourRatio;
+
+    private float endOfDayHour;
 
     void Awake()
     {
@@ -40,11 +42,12 @@ public class PlayerUI : MonoBehaviour
     // This is called by the GameManager
     public void StartCountingTime(int startHour, int endHour)
     {
-        // Just set starting time to 9 AM for now
+        endOfDayHour = endHour;
+
         currentHour = startHour;
         currentMinutes = 0;
-        morning = true;
-        timeText.text = "9:00 AM";
+        isMorning = true;
+        timeText.text = currentHour + ":00 AM";
 
         secondsElapsedForCurrentHour = 0f;
 
@@ -70,7 +73,8 @@ public class PlayerUI : MonoBehaviour
         // Update hour
         if(secondsElapsedForCurrentHour >= secondsToHourRatio)
         {
-            currentHour++;
+            currentHour++;            
+
             secondsElapsedForCurrentHour = 0f;
         }
 
@@ -98,11 +102,22 @@ public class PlayerUI : MonoBehaviour
         if (currentHour > 12)
         {
             currentHour = 1;
-            morning = !morning;
+            isMorning = !isMorning;
         }
 
         // Update text
-        timeText.text = currentHour + ":" + minutesText + (morning ? " AM" : " PM");       
+        timeText.text = currentHour + ":" + minutesText + (isMorning ? " AM" : " PM");
+
+        // We reached the end of the day. Evoke the event 
+        if (!isMorning && currentHour >= endOfDayHour)
+        {
+            if (OnDayEnd != null)
+            {
+                OnDayEnd();
+            }
+
+            countingTime = false;
+        }
     }
 
     private void UpdateYellCooldown()
