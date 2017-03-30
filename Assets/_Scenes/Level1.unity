@@ -664,7 +664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResourceStart: 100
-  ResourcesPerVisit: 10
+  ResourcesPerVisit: 1
 --- !u!1001 &1038714118
 Prefab:
   m_ObjectHideFlags: 0
@@ -707,6 +707,11 @@ Prefab:
     - target: {fileID: 1743096972996786, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 114725548698551772, guid: 40fb34958ad1c3f4b942351c3fa32816,
+        type: 2}
+      propertyPath: speed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
@@ -1120,7 +1125,7 @@ GameObject:
   - component: {fileID: 1489200258}
   - component: {fileID: 1489200257}
   - component: {fileID: 1489200256}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1789,7 +1794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResourceStart: 100
-  ResourcesPerVisit: 10
+  ResourcesPerVisit: 1
 --- !u!1001 &1884633411
 Prefab:
   m_ObjectHideFlags: 0
@@ -2177,7 +2182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResourceStart: 100
-  ResourcesPerVisit: 10
+  ResourcesPerVisit: 1
 --- !u!1 &2089261146
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ public class YellPhysics : MonoBehaviour
 {
     public float speed;
     public float yellExpansion;
+    public float yellStrength;
     public float lengthOfYell; // in seconds
 
     private float centerOffsetY;
@@ -24,7 +25,7 @@ public class YellPhysics : MonoBehaviour
         if (secondsElapsed < lengthOfYell) // the yell will stay active for lengthOfYell amount of seconds
         {
             transform.position = Vector3.Lerp(transform.position, transform.forward + transform.position, Time.deltaTime * speed);
-            //gameObject.transform.localScale += new Vector3(yellExpansion, yellExpansion, 0);
+            gameObject.transform.localScale += new Vector3(yellExpansion, yellExpansion, 0);
         }
         else
         {
@@ -39,7 +40,7 @@ public class YellPhysics : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.forward * 10f, ForceMode.Impulse);
+            other.GetComponent<Rigidbody>().AddForce(transform.forward * yellStrength, ForceMode.Impulse);
         }
         else
         {
