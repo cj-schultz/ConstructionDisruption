@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 65157148152259396}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -631,8 +631,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.835138, y: 12.400893, z: 4.861696}
-  m_Center: {x: 0.5801292, y: 8.368669, z: 0.06723678}
+  m_Size: {x: 6.3425345, y: 12.619817, z: 4.861696}
+  m_Center: {x: 0.0055225147, y: 8.259208, z: 0.06723683}
 --- !u!81 &81452811986664560
 AudioListener:
   m_ObjectHideFlags: 1
@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510dcd8eefde56c40ba3565edcd91c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.25
+  speed: 3
   turnSpeed: 145
   yellPrefab: {fileID: 1885338381402090, guid: b1299d9687ea3404bb6857c65f2d652f, type: 2}
   yellFirePoint: {fileID: 4844457240497882}
