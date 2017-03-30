@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 54281047043827236}
   m_Layer: 10
   m_Name: Yell_Block
-  m_TagString: Untagged
+  m_TagString: Yell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,5 +122,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   yellExpansion: 0.2
-  yellStrength: 12
+  yellStrength: 10
   lengthOfYell: 0.7

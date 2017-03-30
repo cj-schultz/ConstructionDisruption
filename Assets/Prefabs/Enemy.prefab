@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 54099763987155774}
   - component: {fileID: 195675474163612268}
   - component: {fileID: 114964818120310920}
+  - component: {fileID: 114437867397352710}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -593,7 +594,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!65 &65099060524877864
 BoxCollider:
@@ -602,11 +603,24 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628528184648276}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 6.311415, y: 14.845085, z: 5.53241}
   m_Center: {x: 0, y: 7.6307173, z: 0}
+--- !u!114 &114437867397352710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628528184648276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 197ceb04d608b3744903b2ba02b56fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMoral: 100
+  moralLossPerHit: 10
 --- !u!114 &114964818120310920
 MonoBehaviour:
   m_ObjectHideFlags: 1
