@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class YellBeamPlayerController : MonoBehaviour
 {
     public float speed;
-    public float turnSpeed;   
+    public float turnSpeed;
     public GameObject yellPrefab;
     public Transform yellFirePoint;
 
@@ -11,28 +11,30 @@ public class PlayerController : MonoBehaviour
     // Make this public to read, but privite to write
     public float yellCooldownTimeLeft { get; private set; }
 
-    private Rigidbody rb;    
+    private Transform t = null;
+    private Rigidbody r = null;
 
-    void Awake ()
+    void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        t = this.GetComponent<Transform>();
+        r = this.GetComponent<Rigidbody>();
         yellCooldownTimeLeft = 0f;
     }
-	
-	void Update ()
+
+    void Update()
     {
         Vector3 direction = Vector3.zero;
-        Quaternion rot = transform.rotation;
+        Quaternion rot = t.rotation;
 
-        if(yellCooldownTimeLeft >= 0)
+        if (yellCooldownTimeLeft >= 0)
         {
             yellCooldownTimeLeft -= Time.deltaTime;
-        }        
+        }
 
         // Standard movement stuff, use force to move so he doesn't phase through walls
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
+            r.AddForce(t.forward * speed, ForceMode.VelocityChange);
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -40,7 +42,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
-            rb.AddForce(transform.forward * speed * -1f, ForceMode.VelocityChange);
+            r.AddForce(t.forward * speed * -1f, ForceMode.VelocityChange);
         }
         if (Input.GetKey(KeyCode.D))
         {
@@ -51,15 +53,14 @@ public class PlayerController : MonoBehaviour
             // Yell if the cooldown is up
             if (yellCooldownTimeLeft <= 0)
             {
-                // Note(colin): This pushes back the player a little when they yell. Just testing the feel of this.
-                rb.AddForce(-transform.forward * 30f, ForceMode.Impulse);
-
-                GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, transform.localRotation) as GameObject;
+                r.AddForce(-transform.forward*2f, ForceMode.Impulse);
+                GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, t.localRotation) as GameObject;
+                yellBlock.GetComponent<YellBeam>().origin = yellFirePoint.position;
                 yellCooldownTimeLeft = yellCooldown;
             }
         }
-        
-        transform.position += direction * Time.deltaTime * speed;
-        transform.localRotation = rot;
+
+        t.position += direction * Time.deltaTime * speed;
+        t.localRotation = rot;
     }
 }
