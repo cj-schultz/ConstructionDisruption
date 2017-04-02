@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         //
         // DEBUG DRAWING
         //
-
+        /*
         RaycastHit leftHit;
         RaycastHit rightHit;
 
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
         Debug.DrawRay(yellFirePoint.transform.position, -transform.right * leftLength, leftRayColor);
         Debug.DrawRay(yellFirePoint.transform.position, transform.right * rightLength, rightRayColor);
-        
+        */
         //
         //
         //

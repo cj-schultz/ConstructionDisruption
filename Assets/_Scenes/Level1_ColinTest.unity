@@ -429,7 +429,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &338566083
 Transform:
@@ -1243,7 +1243,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1358461965
 Transform:
@@ -2156,7 +2156,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1899424844
 Transform:
@@ -2311,15 +2311,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 34.49
+      value: -31.49785
       objectReference: {fileID: 0}
     - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.801054e-17
+      value: 0.00042700768
       objectReference: {fileID: 0}
     - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 15.64
+      value: -7.8079185
       objectReference: {fileID: 0}
     - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2327,19 +2327,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0.9906651
       objectReference: {fileID: 0}
     - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.7071068
+      value: -0.13631855
       objectReference: {fileID: 0}
     - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844457240497882, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 4.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844457240497882, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
@@ -2461,7 +2469,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2089261147
 Transform:
