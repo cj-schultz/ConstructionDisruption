@@ -11,16 +11,60 @@ public class PlayerController : MonoBehaviour
     // Make this public to read, but privite to write
     public float yellCooldownTimeLeft { get; private set; }
 
-    private Rigidbody rb;    
+    private Rigidbody rb;
+    private BoxCollider boxCollider;
+
+    private Vector3 rayDirectionLeft;
+    private Vector3 rayDirectionRight;
 
     void Awake ()
     {
         rb = GetComponent<Rigidbody>();
         yellCooldownTimeLeft = 0f;
+
+        boxCollider = GetComponent<BoxCollider>();
+        
+        rayDirectionLeft = -transform.right * yellPrefab.transform.localScale.x / 2;
+        rayDirectionRight = transform.right * yellPrefab.transform.localScale.x / 2;
     }
 	
 	void Update ()
     {
+        //
+        // DEBUG DRAWING
+        //
+
+        RaycastHit leftHit;
+        RaycastHit rightHit;
+
+        float leftLength = yellPrefab.transform.localScale.x / 2;
+        float rightLength = yellPrefab.transform.localScale.x / 2;
+
+        Color leftRayColor = Color.blue;
+        Color rightRayColor = Color.blue;
+
+        // left
+        if (Physics.Raycast(yellFirePoint.transform.position, -transform.right * yellPrefab.transform.localScale.x / 2, out leftHit, yellPrefab.transform.localScale.x / 2))
+        {
+            float hitDistance = leftHit.distance;
+            leftLength = hitDistance;
+            leftRayColor = Color.red;
+        }
+        // right
+        if (Physics.Raycast(yellFirePoint.transform.position, transform.right * yellPrefab.transform.localScale.x / 2, out rightHit, yellPrefab.transform.localScale.x / 2))
+        {
+            float hitDistance = rightHit.distance;
+            rightLength = hitDistance;
+            rightRayColor = Color.red;
+        }
+
+        Debug.DrawRay(yellFirePoint.transform.position, -transform.right * leftLength, leftRayColor);
+        Debug.DrawRay(yellFirePoint.transform.position, transform.right * rightLength, rightRayColor);
+        
+        //
+        //
+        //
+
         Vector3 direction = Vector3.zero;
         Quaternion rot = transform.rotation;
 
@@ -51,15 +95,55 @@ public class PlayerController : MonoBehaviour
             // Yell if the cooldown is up
             if (yellCooldownTimeLeft <= 0)
             {
-                // Note(colin): This pushes back the player a little when they yell. Just testing the feel of this.
-                rb.AddForce(-transform.forward * 30f, ForceMode.Impulse);
-
-                GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, transform.localRotation) as GameObject;
-                yellCooldownTimeLeft = yellCooldown;
+                Yell();                
             }
         }
         
         transform.position += direction * Time.deltaTime * speed;
         transform.localRotation = rot;
+    }
+
+    // Spawns and clips the yell block
+    private void Yell()
+    {
+        // If a wall was detected on the left or right side of the player that the yell block would spawn in,
+        // clip the yell block by scaling it down and moving it, thus avoiding spawning it in the wall. Note, this
+        // only works if the angle between the players facing direction and the wall is >= 90 degrees.        
+
+        // Note(colin): This pushes back the player a little when they yell. Just testing the feel of this.
+        rb.AddForce(-transform.forward * 20f, ForceMode.Impulse);
+        GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, transform.localRotation) as GameObject;
+        yellCooldownTimeLeft = yellCooldown;
+
+        // Just a little padding to scale the yell block down more.
+        float scaleEpsilon = 0.1f;
+
+        RaycastHit leftHit;
+        RaycastHit rightHit;
+
+        float halfLengthOfYellBlock = yellPrefab.transform.localScale.x / 2;
+
+        Vector3 oldScale = yellBlock.transform.localScale;
+
+        // Raycast to the left of the yell fire point
+        if (Physics.Raycast(yellFirePoint.transform.position, -transform.right * yellPrefab.transform.localScale.x / 2, out leftHit, yellPrefab.transform.localScale.x / 2))
+        {         
+            // A wall on the left was found, scale down and reposition the block.   
+            float amountToScaleDown = halfLengthOfYellBlock - leftHit.distance + scaleEpsilon;
+            yellBlock.transform.localScale = new Vector3(oldScale.x - amountToScaleDown, oldScale.y, oldScale.z);
+            yellBlock.transform.position += transform.right * amountToScaleDown / 2;
+        }
+
+        // Reset the "old" scale
+        oldScale = yellBlock.transform.localScale;
+
+        // Raycast to the left of the yell fire point
+        if (Physics.Raycast(yellFirePoint.transform.position, transform.right * yellPrefab.transform.localScale.x / 2, out rightHit, yellPrefab.transform.localScale.x / 2))
+        {
+            // A wall on the right was found, scale down and reposition the block.
+            float amountToScaleDown = halfLengthOfYellBlock - rightHit.distance + scaleEpsilon;
+            yellBlock.transform.localScale = new Vector3(oldScale.x - amountToScaleDown, oldScale.y, oldScale.z);
+            yellBlock.transform.position -= transform.right * amountToScaleDown / 2;
+        }
     }
 }

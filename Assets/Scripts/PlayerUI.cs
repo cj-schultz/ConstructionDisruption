@@ -9,9 +9,9 @@ public class PlayerUI : MonoBehaviour
     public static event TimeThresholdHit OnDayEnd;
 
     [SerializeField]
-    private PlayerController playerController;
+    private GameManager gameManager;
     [SerializeField]
-    private float secondsToHourRatio = 4f; // The number of real-time seconds that should map to in-game hours
+    private PlayerController playerController;
 
     [Header("UI Components")]
     [SerializeField]
@@ -52,7 +52,7 @@ public class PlayerUI : MonoBehaviour
         secondsElapsedForCurrentHour = 0f;
 
         // Since we are updating minute text every 15 minutes, we need this ratio
-        secondsToQuaterHourRatio = secondsToHourRatio / 4f;
+        secondsToQuaterHourRatio = gameManager.secondsToHourRatio / 4f;
         countingTime = true;
     }
 
@@ -71,7 +71,7 @@ public class PlayerUI : MonoBehaviour
         secondsElapsedForCurrentHour += Time.deltaTime;
         
         // Update hour
-        if(secondsElapsedForCurrentHour >= secondsToHourRatio)
+        if(secondsElapsedForCurrentHour >= gameManager.secondsToHourRatio)
         {
             currentHour++;            
 
