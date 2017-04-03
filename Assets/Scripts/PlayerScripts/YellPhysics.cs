@@ -109,7 +109,7 @@ public class YellPhysics : MonoBehaviour
         if (secondsElapsed < lengthOfYell) // the yell will stay active for lengthOfYell amount of seconds
         {
             transform.position += deltaPosition;
-            //gameObject.transform.localScale += new Vector3(yellExpansion, yellExpansion, 0);
+            gameObject.transform.localScale += new Vector3(yellExpansion, yellExpansion, 0);
         }
         else
         {            
