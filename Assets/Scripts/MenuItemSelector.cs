@@ -29,6 +29,8 @@ public class MenuItemSelector : MonoBehaviour
     private int currentSelectionIndex;
     private Color normalColor;
 
+    private bool acceptingInputs;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -40,11 +42,18 @@ public class MenuItemSelector : MonoBehaviour
         normalColor = currentSelection.color;
         currentSelection.color = selectionColor;
 
+        acceptingInputs = true;
+
         StartCoroutine("GlowCurrentSelection");
     }
 
     void Update()
-    {        
+    {      
+        if(!acceptingInputs)
+        {
+            return;
+        }  
+
         if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             // Wrap the selection if needed
@@ -84,6 +93,7 @@ public class MenuItemSelector : MonoBehaviour
             if(currentSelectionIndex == 0)
             {
                 sceneFader.FadeTo("Level1");
+                acceptingInputs = false;
             }
         }
     }

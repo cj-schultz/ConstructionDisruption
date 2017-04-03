@@ -12,9 +12,7 @@ public class YellPhysics : MonoBehaviour
 
     private float centerOffsetY;
     private Rigidbody rb = null;
-    private float secondsElapsed = 0;
-
-    
+    private float secondsElapsed = 0;    
 
 	void Start ()
     {
