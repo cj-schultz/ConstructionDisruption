@@ -8,15 +8,19 @@ public class YellPhysics : MonoBehaviour
     public float yellStrength;
     public float lengthOfYell; // in seconds
 
+    public LayerMask wallClippers;
+
     private float centerOffsetY;
     private Rigidbody rb = null;
     private float secondsElapsed = 0;
+
+    
 
 	void Start ()
     {
         rb = this.GetComponent<Rigidbody>();
         centerOffsetY = transform.localScale.y / 2;
-        transform.position = new Vector3(transform.position.x, transform.position.y + centerOffsetY, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y + centerOffsetY, transform.position.z);        
     }  
 	
 	void Update ()
@@ -37,7 +41,7 @@ public class YellPhysics : MonoBehaviour
         Quaternion orientation = transform.localRotation;
 
         RaycastHit[] hitsInfo;
-        hitsInfo = Physics.BoxCastAll(center, halfExtents, boxcastDir, orientation, maxDistance, ~LayerMask.NameToLayer("Yell"));
+        hitsInfo = Physics.BoxCastAll(center, halfExtents, boxcastDir, orientation, maxDistance, wallClippers);
 
         if (hitsInfo.Length > 0)
         {

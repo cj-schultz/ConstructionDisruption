@@ -124,3 +124,6 @@ MonoBehaviour:
   yellExpansion: 0.2
   yellStrength: 10
   lengthOfYell: 1
+  wallClippers:
+    serializedVersion: 2
+    m_Bits: 4294965503
