@@ -495,9 +495,9 @@ MonoBehaviour:
   sceneFader: {fileID: 1697302371}
   playerUI: {fileID: 1884633412}
   gameOverUI: {fileID: 1211252868}
-  secondsToHourRatio: 2
-  startHour: 11
-  endHour: 1
+  secondsToHourRatio: 7
+  startHour: 9
+  endHour: 5
 --- !u!1001 &534902966
 Prefab:
   m_ObjectHideFlags: 0
