@@ -15,13 +15,21 @@ public class GameOverUI : MonoBehaviour
     void Start()
     {
         // Add + 1 because the indexes are based at 0
-        jobText.text = "Job " + (GameManager.CurrentGameState.currentJobIndex + 1);
-        // We don't add plus one, because we already incremented the current day index in the Game Manager before this script is called
-        dayText.text = "Day " + (GameManager.CurrentGameState.currentDayIndex);
+        jobText.text = "Job " + (JobManager.CurrentGameState.currentJobIndex + 1);
+
+        if(JobManager.CurrentGameState.currentDayIndex >= JobManager.Instance.jobBlueprint.numOfDays)
+        {
+            dayText.text = "Day " + (JobManager.CurrentGameState.currentDayIndex) + "\nJob Finished!";
+        }
+        else
+        {
+            // We don't add plus one, because we already incremented the current day index in the Job Manager before this script is called
+            dayText.text = "Day " + (JobManager.CurrentGameState.currentDayIndex);
+        }        
     }
 
     public void StartNextDay()
     {
-        sceneFader.FadeTo("Level1");
+        sceneFader.FadeTo("Job1");
     }
 }

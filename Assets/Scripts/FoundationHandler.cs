@@ -24,7 +24,7 @@ public class FoundationHandler : MonoBehaviour
     void Start()
     {
         // Derive the current count from the game state's foundation fill percentage
-        currentCount = (int)(GameManager.CurrentGameState.currentJobFoundationCompletion * finalCount);
+        currentCount = (int)(JobManager.CurrentGameState.currentJobFoundationCompletion * finalCount);
 
         StartCoroutine("UpdateStatusGUI"); 
     }    
@@ -62,11 +62,10 @@ public class FoundationHandler : MonoBehaviour
     private IEnumerator UpdateStatusGUI()
     {
         float completionRatio = (float)currentCount / (float)finalCount;
-        Debug.Log(completionRatio);
         completionRatio = Mathf.Clamp(completionRatio, 0f, 1f);
-        Debug.Log(completionRatio);
+
         // Update game state
-        GameManager.CurrentGameState.currentJobFoundationCompletion = completionRatio;        
+        JobManager.CurrentGameState.currentJobFoundationCompletion = completionRatio;        
 
         // Set the status text 
         statusText.text = Mathf.Round(completionRatio * 100f) + "%";

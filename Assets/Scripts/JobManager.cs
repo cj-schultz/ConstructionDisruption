@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class JobManager : MonoBehaviour
 {
+    public static JobManager Instance;
     public static GameState CurrentGameState;
+
+    [Header("HOLY SHIT IT'S A JOB BLUEPRINT")]
+    public JobBlueprint jobBlueprint;        
 
     [Header("Component references")]
     [SerializeField]
@@ -12,20 +16,20 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject gameOverUI;
 
-    [Header("Game Variables")]
-    // The number of real-time seconds that should map to in-game hours
-    public float secondsToHourRatio = 4f;
-    // The hour the current day should start at
-    // Note: This is always assumed to be AM
-    [SerializeField]
-    private int startHour; 
-    // The hour that the current day should end at
-    // Note: This is always assumed to be AM
-    [SerializeField]
-    private int endHour;
-    
     void Awake()
     {
+        // @Note(colin): This is a singleton, google it or something
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            enabled = false;
+            return;
+        }
+        else if (Instance == null)
+        {
+            Instance = this;
+        }            
+
         gameOverUI.SetActive(false);
 
         if(CurrentGameState == null)
@@ -34,7 +38,7 @@ public class GameManager : MonoBehaviour
         }        
 
         // Start the day
-        playerUI.StartCountingTime(startHour, endHour);
+        playerUI.StartCountingTime(jobBlueprint.startHour, jobBlueprint.endHour);
     }
 
     void OnEnable()

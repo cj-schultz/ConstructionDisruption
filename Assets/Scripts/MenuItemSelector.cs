@@ -92,7 +92,7 @@ public class MenuItemSelector : MonoBehaviour
             // @TODO: Select the current menu item with return or space bar
             if(currentSelectionIndex == 0)
             {
-                sceneFader.FadeTo("Level1");
+                sceneFader.FadeTo("Job1");
                 acceptingInputs = false;
             }
         }

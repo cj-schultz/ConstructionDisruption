@@ -25,9 +25,10 @@ public class YellPhysics : MonoBehaviour
     {
         // Calculate the amount of movement the yell block will do this frame
         Vector3 deltaPosition = transform.forward * Time.deltaTime * speed;
+        gameObject.transform.localScale += new Vector3(yellExpansion, yellExpansion, 0);
 
         //
-        // 
+        // Yell block clipping
         //        
         float maxDistance = 10f;
         float scaleEpsilon = .5f;
@@ -108,8 +109,7 @@ public class YellPhysics : MonoBehaviour
         
         if (secondsElapsed < lengthOfYell) // the yell will stay active for lengthOfYell amount of seconds
         {
-            transform.position += deltaPosition;
-            gameObject.transform.localScale += new Vector3(yellExpansion, yellExpansion, 0);
+            transform.position += deltaPosition;            
         }
         else
         {            

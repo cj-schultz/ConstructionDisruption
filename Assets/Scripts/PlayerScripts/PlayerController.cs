@@ -106,12 +106,9 @@ public class PlayerController : MonoBehaviour
     // Spawns and clips the yell block
     private void Yell()
     {
-        // If a wall was detected on the left or right side of the player that the yell block would spawn in,
-        // clip the yell block by scaling it down and moving it, thus avoiding spawning it in the wall. Note, this
-        // only works if the angle between the players facing direction and the wall is >= 90 degrees.        
-
         // Note(colin): This pushes back the player a little when they yell. Just testing the feel of this.
-        rb.AddForce(-transform.forward * 20f, ForceMode.Impulse);
+        //rb.AddForce(-transform.forward * 20f, ForceMode.Impulse);
+
         GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, transform.localRotation) as GameObject;
         yellCooldownTimeLeft = yellCooldown;
 
