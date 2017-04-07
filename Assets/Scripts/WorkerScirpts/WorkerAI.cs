@@ -81,7 +81,7 @@ public class WorkerAI : MonoBehaviour
     void ExpendResource()
     {
         ResourceGraphic.SetActive(false);
-        FoundationObject.GetComponent<FoundationHandler>().giveResource(ResourceCount);
+        FoundationObject.GetComponent<FoundationHandler>().GiveResource(ResourceCount);
         NavDest = NavDestination.MovingToResource;
     }
 }

@@ -8,10 +8,10 @@ public class FoundationHandler : MonoBehaviour
 {
     // Note(Colin): I changed these to float because we need to divide with them to get ratios
     //How many resources are needed for the foundation to be finished different stages
-    float Stage1Count;
-    float Stage2Count;
-    float Stage3Count;
-    public float FinalCount;
+    float stage1Count;
+    float stage2Count;
+    float stage3Count;
+    public int finalCount = 100;
 
     [Header("Foundation Status UI")]
     public Image statusFillBar;
@@ -19,42 +19,40 @@ public class FoundationHandler : MonoBehaviour
     public float statusBarFillSpeed;
 
     //Keeps track of how many resources the foundation has
-    private float CurrentCount;
+    private int currentCount;
 
-    // Use this for initialization
     void Start()
     {
-        CurrentCount = 0;
+        // Derive the current count from the game state's foundation fill percentage
+        currentCount = (int)(GameManager.CurrentGameState.currentJobFoundationCompletion * finalCount);
 
-        // Start with 0% status for now
-        statusFillBar.fillAmount = 0f;
-        statusText.text = "0%";   
+        StartCoroutine("UpdateStatusGUI"); 
     }    
 
     // Note(Colin): I moved the CurrentCount checking to giveResource, just cause we don't need to check it every frame,
     //              we will only need to check it when the resource count changes
     //Called by a worker's AI when it wants to give resources to this foundation
-    public void giveResource(int Given)
+    public void GiveResource(int Given)
     {
-        CurrentCount = CurrentCount + Given;
+        currentCount = currentCount + Given;
 
         // Update UI
         StopCoroutine("UpdateStatusGUI");
         StartCoroutine("UpdateStatusGUI");
                 
-        if (CurrentCount >= Stage1Count & CurrentCount < Stage2Count)
+        if (currentCount >= stage1Count & currentCount < stage2Count)
         {
             //Change artwork here
         }
-        else if (CurrentCount >= Stage2Count & CurrentCount < Stage3Count)
+        else if (currentCount >= stage2Count & currentCount < stage3Count)
         {
             //Change artwork here
         }
-        else if (CurrentCount >= Stage3Count & CurrentCount < FinalCount)
+        else if (currentCount >= stage3Count & currentCount < finalCount)
         {
             //Change artwork here
         }
-        else if (CurrentCount >= FinalCount)
+        else if (currentCount >= finalCount)
         {
             //Change artwork here
             //Also run any code connected to this foundation being finished (Ex. any end game conditions)
@@ -63,26 +61,21 @@ public class FoundationHandler : MonoBehaviour
 
     private IEnumerator UpdateStatusGUI()
     {
-        float completionRatio = CurrentCount / FinalCount;
+        float completionRatio = (float)currentCount / (float)finalCount;
+        Debug.Log(completionRatio);
+        completionRatio = Mathf.Clamp(completionRatio, 0f, 1f);
+        Debug.Log(completionRatio);
+        // Update game state
+        GameManager.CurrentGameState.currentJobFoundationCompletion = completionRatio;        
 
-        if(completionRatio >= 1)
-        {
-            // Lose the game
-            statusFillBar.fillAmount = 1f;
-            statusText.text = "100%";
-        }
-        else
-        {
-            // Set the status text and animate the loading bar
-            statusText.text = Mathf.Round(completionRatio * 100f) + "%";
+        // Set the status text 
+        statusText.text = Mathf.Round(completionRatio * 100f) + "%";
 
-            while(statusFillBar.fillAmount != completionRatio)
-            {
-                statusFillBar.fillAmount = Mathf.MoveTowards(statusFillBar.fillAmount, completionRatio, Time.deltaTime * statusBarFillSpeed);
-                yield return null;
-            }         
-        }
-        
-        yield return null;
+        // Animate the completion status bar
+        while (statusFillBar.fillAmount != completionRatio)
+        {
+            statusFillBar.fillAmount = Mathf.MoveTowards(statusFillBar.fillAmount, completionRatio, Time.deltaTime * statusBarFillSpeed);
+            yield return null;
+        }                    
     }
 }

@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76db33cf9ff558842a97a4baf574ef31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FinalCount: 100
+  finalCount: 100
   statusFillBar: {fileID: 1975300096}
   statusText: {fileID: 1360958933}
   statusBarFillSpeed: 0.5
@@ -714,7 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResourceStart: 100
-  ResourcesPerVisit: 1
+  ResourcesPerVisit: 10
 --- !u!1001 &1038714118
 Prefab:
   m_ObjectHideFlags: 0
@@ -2037,7 +2037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResourceStart: 100
-  ResourcesPerVisit: 1
+  ResourcesPerVisit: 5
 --- !u!1001 &1884633411
 Prefab:
   m_ObjectHideFlags: 0
@@ -2441,7 +2441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResourceStart: 100
-  ResourcesPerVisit: 1
+  ResourcesPerVisit: 3
 --- !u!1 &2089261146
 GameObject:
   m_ObjectHideFlags: 0
