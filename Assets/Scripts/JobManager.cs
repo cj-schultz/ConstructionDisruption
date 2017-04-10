@@ -57,7 +57,5 @@ public class JobManager : MonoBehaviour
         CurrentGameState.currentDayIndex++;
 
         gameOverUI.SetActive(true);
-
-        //sceneFader.FadeTo("MainMenu");
     }
 }
