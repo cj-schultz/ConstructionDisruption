@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Yell
+  - Foundation
+  - Resource
   layers:
   - Default
   - TransparentFX

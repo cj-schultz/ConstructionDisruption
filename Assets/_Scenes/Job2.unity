@@ -2410,9 +2410,19 @@ Prefab:
       propertyPath: m_AngularSpeed
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114964818120310920, guid: 2c8a08348ff863047b9877bce267fc76,
+        type: 2}
+      propertyPath: ResourceGraphic
+      value: 
+      objectReference: {fileID: 1534289084}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1534289084 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1310275170750506, guid: 2c8a08348ff863047b9877bce267fc76,
+    type: 2}
+  m_PrefabInternal: {fileID: 1534289083}
 --- !u!4 &1549598360 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000013950294986, guid: 2ebdc32c603c0f74a8df3ff23c55e8e0,

@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 228823876}
   m_Layer: 0
   m_Name: Foundation
-  m_TagString: Untagged
+  m_TagString: Foundation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -1025,6 +1025,31 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114964818120310920, guid: 2c8a08348ff863047b9877bce267fc76,
+        type: 2}
+      propertyPath: FoundationMaxDistance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114964818120310920, guid: 2c8a08348ff863047b9877bce267fc76,
+        type: 2}
+      propertyPath: ResourceMaxDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114964818120310920, guid: 2c8a08348ff863047b9877bce267fc76,
+        type: 2}
+      propertyPath: CollectTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114964818120310920, guid: 2c8a08348ff863047b9877bce267fc76,
+        type: 2}
+      propertyPath: DepositTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114964818120310920, guid: 2c8a08348ff863047b9877bce267fc76,
+        type: 2}
+      propertyPath: ResourceGraphic
+      value: 
+      objectReference: {fileID: 1832435141}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
   m_IsPrefabParent: 0
@@ -1620,7 +1645,7 @@ GameObject:
   - component: {fileID: 1017832252}
   m_Layer: 0
   m_Name: Resources (3)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -2375,7 +2400,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4948728502672600, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 30.110435
+      value: 28.2
       objectReference: {fileID: 0}
     - target: {fileID: 4948728502672600, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2415,16 +2440,6 @@ Prefab:
       propertyPath: FoundationObject
       value: 
       objectReference: {fileID: 228823871}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_StoppingDistance
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_AngularSpeed
-      value: 150
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
   m_IsPrefabParent: 0
@@ -2959,10 +2974,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1628528184648276, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
-      propertyPath: m_Name
-      value: Enemy (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 114964818120310920, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
       propertyPath: ResourceObject
@@ -2973,39 +2984,9 @@ Prefab:
       propertyPath: FoundationObject
       value: 
       objectReference: {fileID: 228823871}
-    - target: {fileID: 54099763987155774, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_Drag
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_Speed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_Acceleration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 54099763987155774, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_Mass
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_StoppingDistance
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_AngularSpeed
-      value: 150
-      objectReference: {fileID: 0}
     - target: {fileID: 1628528184648276, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_Name
+      value: Enemy (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
@@ -3024,7 +3005,7 @@ GameObject:
   - component: {fileID: 1820884449}
   m_Layer: 0
   m_Name: Resources (1)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -3105,6 +3086,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ResourceStart: 100
   ResourcesPerVisit: 5
+--- !u!1 &1832435141 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1310275170750506, guid: 2c8a08348ff863047b9877bce267fc76,
+    type: 2}
+  m_PrefabInternal: {fileID: 534902966}
 --- !u!1 &1850014402
 GameObject:
   m_ObjectHideFlags: 0
@@ -3559,7 +3545,7 @@ GameObject:
   - component: {fileID: 2084310698}
   m_Layer: 0
   m_Name: Resources (2)
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
