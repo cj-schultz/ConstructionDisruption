@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameOverUI : MonoBehaviour
@@ -30,6 +31,7 @@ public class GameOverUI : MonoBehaviour
 
     public void StartNextDay()
     {
-        sceneFader.FadeTo("Job1");
+		// @Note(colin): This is assuming we are loading the same job as last time
+		sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
 }
