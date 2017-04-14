@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
 /*
@@ -8,6 +9,7 @@ This component can be placed on workers to allow them to move to and from differ
 Workers also need a NavMeshAgent placed on them for this to function. A NavMesh must also be baked into the level.
  */
 
+[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody))]
 public class WorkerAI : MonoBehaviour
 {
     // The resource graphic that the worker "holds", this should be a child of the Enemy prefab.
@@ -20,37 +22,47 @@ public class WorkerAI : MonoBehaviour
     public float DepositTime;
 
     //0 for not moving, 1 for moving to resource, 2 for moving to foundation
-    private enum NavDestination { NotMoving, MovingToResource, MovingToFoundation }    
+    private enum NavDestination { NotMoving, MovingToResource, MovingToFoundation }
     private NavDestination NavDest;
     //How much resource the worker currently holds
     private int ResourceCount;
 
-	private NavMeshAgent agent;
+    private NavMeshAgent agent;
+    private Rigidbody rb;
+
+    private int hitStreakCount = 0;
+    private float lastHitTime = 0;
 
     //Worker will initially move to resource
     void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
+
         ResourceCount = 0;
         ResourceGraphic.SetActive(false);
-        NavDest = NavDestination.MovingToResource;        
-
-		agent = GetComponent<NavMeshAgent>();
+        NavDest = NavDestination.MovingToResource;
     }
 
     void Update()
-    {       
-		if (transform.position == agent.pathEndPosition) 
-		{
-			if (NavDest == NavDestination.MovingToFoundation) {
-				NavDest = NavDestination.MovingToResource;
-				Invoke("ExpendResource", DepositTime);
-			} else if (NavDest == NavDestination.MovingToResource) {				
-				NavDest = NavDestination.MovingToFoundation;
-				Invoke("AcquireResource", CollectTime);
-			}
-		}
+    {
+        // Determine if the worker reached his destination
+        if (Vector3.Distance(transform.position,agent.pathEndPosition) <= 0.1f)
+        {
+            if (NavDest == NavDestination.MovingToFoundation)
+            {
+                NavDest = NavDestination.MovingToResource;
+                Invoke("ExpendResource", DepositTime);
+            }
+            else if (NavDest == NavDestination.MovingToResource)
+            {
+                NavDest = NavDestination.MovingToFoundation;
+                Invoke("AcquireResource", CollectTime);
+            }
+        }
+
         //Set NavMeshAgent to correct destination based on mode
-		if (NavDest == NavDestination.NotMoving)
+        if (NavDest == NavDestination.NotMoving)
         {
             agent.destination = gameObject.transform.position;
         }
@@ -62,6 +74,13 @@ public class WorkerAI : MonoBehaviour
         {
             agent.destination = FoundationObject.transform.position;
         }
+    }
+
+    private float hitEnrageTime = 2f;
+    public void HitByYell(Vector3 force)
+    {
+        float hitTimeDifference = Time.time - lastHitTime;
+        rb.AddForce(force, ForceMode.Impulse);
     }
 
     void AcquireResource()

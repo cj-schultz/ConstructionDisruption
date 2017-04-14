@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameOverUI : MonoBehaviour
@@ -12,26 +11,42 @@ public class GameOverUI : MonoBehaviour
     private TextMeshProUGUI jobText;
     [SerializeField]
     private TextMeshProUGUI dayText;
-
-    void Start()
+    
+    public void Setup(bool finishedLastDayOfJob)
     {
-        // Add + 1 because the indexes are based at 0
-        jobText.text = "Job " + (JobManager.CurrentGameState.currentJobIndex + 1);
-
-        if(JobManager.CurrentGameState.currentDayIndex >= JobManager.Instance.jobBlueprint.numOfDays)
+        string dayString = "";
+        if (JobManager.CurrentGameState.currentDayNumber == 1)
         {
-            dayText.text = "Day " + (JobManager.CurrentGameState.currentDayIndex) + "\nJob Finished!";
+            if(finishedLastDayOfJob)
+            {
+                dayString = "Day " + JobManager.Instance.jobBlueprint.numOfDays + " / " + JobManager.Instance.jobBlueprint.numOfDays;
+            }
+            else
+            {
+                dayString = "Day 1 / " + JobManager.Instance.jobBlueprint.numOfDays;
+            }            
         }
         else
         {
-            // We don't add plus one, because we already incremented the current day index in the Job Manager before this script is called
-            dayText.text = "Day " + (JobManager.CurrentGameState.currentDayIndex);
+            dayString = "Day " + (JobManager.CurrentGameState.currentDayNumber - 1) + " / " + JobManager.Instance.jobBlueprint.numOfDays;
+        }
+
+
+        if (finishedLastDayOfJob)
+        {
+            jobText.text = "Job " + (JobManager.CurrentGameState.currentJobNumber - 1);            
+            dayText.text = dayString;
+        }
+        else
+        {
+            jobText.text = "Job " + (JobManager.CurrentGameState.currentJobNumber);
+            dayText.text = dayString;
         }        
     }
 
     public void StartNextDay()
     {
 		// @Note(colin): This is assuming we are loading the same job as last time
-		sceneFader.FadeTo(SceneManager.GetActiveScene().name);
+		sceneFader.FadeTo("Job" + JobManager.CurrentGameState.currentJobNumber);
     }
 }

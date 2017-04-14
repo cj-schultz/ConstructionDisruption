@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
 public class JobManager : MonoBehaviour
 {
     public static JobManager Instance;
+
     public static GameState CurrentGameState;
+    public static string GAME_STATE_DISK_PATH = "/saved_user_info.dat";
 
     [Header("HOLY SHIT IT'S A JOB BLUEPRINT")]
     public JobBlueprint jobBlueprint;        
@@ -14,7 +18,7 @@ public class JobManager : MonoBehaviour
     [SerializeField]
     private PlayerUI playerUI;
     [SerializeField]
-    private GameObject gameOverUI;
+    private GameOverUI gameOverUI;
 
     void Awake()
     {
@@ -30,7 +34,7 @@ public class JobManager : MonoBehaviour
             Instance = this;
         }            
 
-        gameOverUI.SetActive(false);
+        gameOverUI.gameObject.SetActive(false);
 
         if(CurrentGameState == null)
         {
@@ -53,9 +57,45 @@ public class JobManager : MonoBehaviour
 
     private void HandleDayEnd()
     {
-        // Update game state
-        CurrentGameState.currentDayIndex++;
+        bool finishedLastDayOfJob = false;
 
-        gameOverUI.SetActive(true);
+        // Update game state        
+        if(CurrentGameState.currentDayNumber >= jobBlueprint.numOfDays)
+        {
+            CurrentGameState.currentJobNumber++;
+            CurrentGameState.currentDayNumber = 1;
+            finishedLastDayOfJob = true;
+        }
+        else
+        {
+            CurrentGameState.currentDayNumber++;
+        }
+        
+        gameOverUI.gameObject.SetActive(true);
+        gameOverUI.Setup(finishedLastDayOfJob);
     }
+
+    void OnApplicationQuit()
+    {
+        // Save state
+        WriteGameStateToDisk();
+    }
+
+    private void WriteGameStateToDisk()
+    {
+        if (CurrentGameState == null)
+        {
+            return;
+        }
+
+        string path = Application.persistentDataPath + JobManager.GAME_STATE_DISK_PATH;
+        Stream file = File.Open(path, FileMode.Create);
+
+        BinaryFormatter formatter = new BinaryFormatter();
+
+        formatter.Serialize(file, CurrentGameState);
+
+        file.Close();
+    }
+
 }

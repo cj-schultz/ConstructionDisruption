@@ -123,7 +123,7 @@ public class YellPhysics : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            other.GetComponent<Rigidbody>().AddForce(transform.forward * yellStrength, ForceMode.Impulse);
+            other.GetComponent<WorkerAI>().HitByYell(transform.forward * yellStrength);
         }
         else
         {

@@ -852,7 +852,7 @@ MonoBehaviour:
     dailyBaseSalary: 1000
   sceneFader: {fileID: 1697302371}
   playerUI: {fileID: 1884633412}
-  gameOverUI: {fileID: 1211252868}
+  gameOverUI: {fileID: 1860762987}
 --- !u!1001 &534902966
 Prefab:
   m_ObjectHideFlags: 0
@@ -1944,11 +1944,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 90, y: 3.75, z: 1}
   m_Center: {x: 1.4, y: 2, z: 0.5}
---- !u!1 &1211252868 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1318020376282646, guid: af38ba500256e7148a5f15800f57f4f7,
-    type: 2}
-  m_PrefabInternal: {fileID: 1860762986}
 --- !u!4 &1242777070 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012378391202, guid: ecc15abaa2d4963428bdf7fc9eb09410,
@@ -2548,6 +2543,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114586787209082732, guid: 7c316456d91960048ae1e2a615e3ea0d,
+        type: 2}
+      propertyPath: curve.m_Curve.Array.data[0].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114586787209082732, guid: 7c316456d91960048ae1e2a615e3ea0d,
+        type: 2}
+      propertyPath: curve.m_Curve.Array.data[0].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114586787209082732, guid: 7c316456d91960048ae1e2a615e3ea0d,
+        type: 2}
+      propertyPath: curve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114586787209082732, guid: 7c316456d91960048ae1e2a615e3ea0d,
+        type: 2}
+      propertyPath: curve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c316456d91960048ae1e2a615e3ea0d, type: 2}
   m_IsPrefabParent: 0
@@ -2914,6 +2929,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af38ba500256e7148a5f15800f57f4f7, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1860762987 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114831928302983224, guid: af38ba500256e7148a5f15800f57f4f7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1860762986}
+  m_Script: {fileID: 11500000, guid: 86f3b65f6bf19dd4688eb5c3593ec332, type: 3}
 --- !u!1001 &1884633411
 Prefab:
   m_ObjectHideFlags: 0

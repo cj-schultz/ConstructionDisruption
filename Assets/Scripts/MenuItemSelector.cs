@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEngine;
 
@@ -44,6 +46,12 @@ public class MenuItemSelector : MonoBehaviour
 
         acceptingInputs = true;
 
+        // Disable to continue button if there isn't any game state on disk
+        if(!DoesGameStateExistOnDisk())
+        {
+            menuItems[1].color = Color.black;
+        }
+
         StartCoroutine("GlowCurrentSelection");
     }
 
@@ -63,7 +71,15 @@ public class MenuItemSelector : MonoBehaviour
             }
             else
             {
-                currentSelectionIndex++;
+                // Skip the continue button if it is disabled
+                if(currentSelectionIndex == 0 && !DoesGameStateExistOnDisk())
+                {
+                    currentSelectionIndex += 2;
+                }
+                else
+                {
+                    currentSelectionIndex++;
+                }                
             }
 
             audioSource.PlayOneShot(downSound);
@@ -79,7 +95,14 @@ public class MenuItemSelector : MonoBehaviour
             }
             else
             {
-                currentSelectionIndex--;
+                if (currentSelectionIndex == 2 && !DoesGameStateExistOnDisk())
+                {
+                    currentSelectionIndex -= 2;
+                }
+                else
+                {
+                    currentSelectionIndex--;
+                }                    
             }
 
             // Play this sound quieter cause it's a little loud
@@ -89,12 +112,21 @@ public class MenuItemSelector : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
         {
-            // @TODO: Select the current menu item with return or space bar
-            if(currentSelectionIndex == 0)
+            switch(currentSelectionIndex)
             {
-                sceneFader.FadeTo("Job1");
-                acceptingInputs = false;
-            }
+                case 0: // New Game
+                    sceneFader.FadeTo("Job1");
+                    acceptingInputs = false;
+                    break;
+                case 1: // Continue
+                    LoadGameStateFromDisk();
+                    sceneFader.FadeTo("Job" + JobManager.CurrentGameState.currentJobNumber);
+                    break;
+                case 2: // Settings
+                    break;
+                case 3: // Exit
+                    break;
+            }           
         }
     }
 
@@ -107,6 +139,42 @@ public class MenuItemSelector : MonoBehaviour
         currentSelection.color = selectionColor;
 
         StartCoroutine("GlowCurrentSelection");
+    }
+
+    private void LoadGameStateFromDisk()
+    {
+        GameState state = null;
+        string path = Application.persistentDataPath + JobManager.GAME_STATE_DISK_PATH;
+
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream file = File.Open(path, FileMode.Open);
+
+            state = (GameState)formatter.Deserialize(file);
+            JobManager.CurrentGameState = state;
+
+            file.Close();
+        }
+        else
+        {
+            // @TODO
+        }
+    }
+
+    private void DeleteGameStateFromDisk()
+    {
+        string path = Application.persistentDataPath + JobManager.GAME_STATE_DISK_PATH;
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
+
+    private bool DoesGameStateExistOnDisk()
+    {
+        string path = Application.persistentDataPath + JobManager.GAME_STATE_DISK_PATH;
+        return File.Exists(path);
     }
 
     // Lerps between selection color and normal color
