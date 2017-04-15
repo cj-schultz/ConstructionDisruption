@@ -21,6 +21,8 @@ public class WorkerAI : MonoBehaviour
     public float CollectTime;
     public float DepositTime;
 
+    public GameObject ui;
+
     //0 for not moving, 1 for moving to resource, 2 for moving to foundation
     private enum NavDestination { NotMoving, MovingToResource, MovingToFoundation }
     private NavDestination NavDest;
@@ -29,6 +31,8 @@ public class WorkerAI : MonoBehaviour
 
     private NavMeshAgent agent;
     private Rigidbody rb;
+
+    private GameObject player;
 
     private int hitStreakCount = 0;
     private float lastHitTime = 0;
@@ -39,6 +43,8 @@ public class WorkerAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
 
+        player = GameObject.FindWithTag("Player");
+
         ResourceCount = 0;
         ResourceGraphic.SetActive(false);
         NavDest = NavDestination.MovingToResource;
@@ -46,6 +52,11 @@ public class WorkerAI : MonoBehaviour
 
     void Update()
     {
+        ui.transform.LookAt(player.transform);
+        float yrot = ui.transform.eulerAngles.y;
+        ui.transform.eulerAngles = Vector3.zero;
+        ui.transform.eulerAngles += Vector3.up * yrot;
+
         // Determine if the worker reached his destination
         if (Vector3.Distance(transform.position,agent.pathEndPosition) <= 0.1f)
         {
