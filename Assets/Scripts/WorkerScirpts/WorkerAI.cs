@@ -12,31 +12,29 @@ Workers also need a NavMeshAgent placed on them for this to function. A NavMesh 
 public class WorkerAI : MonoBehaviour
 {
     // The resource graphic that the worker "holds", this should be a child of the Enemy prefab.
-    public GameObject ResourceGraphic;
-    //References to the resource and the foundation that the worker will move between
-    public GameObject ResourceObject;
-    public GameObject FoundationObject;
+    public GameObject resourceGraphic;        
     //How long (in seconds) it takes to collect or drop off resources
-    public float CollectTime;
-    public float DepositTime;
-
+    public float collectTime;
+    public float depositTime;
     public GameObject ui;
+
+    //References to the resource and the foundation that the worker will move between
+    [HideInInspector]
+    public GameObject targetResource;
+    [HideInInspector]
+    public GameObject targetFoundation;
 
     //0 for not moving, 1 for moving to resource, 2 for moving to foundation
     private enum NavDestination { NotMoving, MovingToResource, MovingToFoundation }
-    private NavDestination NavDest;
+    private NavDestination navDest;
     //How much resource the worker currently holds
-    private int ResourceCount;
+    private int resourceCount;
 
     private NavMeshAgent agent;
     private Rigidbody rb;
 
     private GameObject player;
-
-    private int hitStreakCount = 0;
-    private float lastHitTime = 0;
-
-    //Worker will initially move to resource
+        
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -44,9 +42,10 @@ public class WorkerAI : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
 
-        ResourceCount = 0;
-        ResourceGraphic.SetActive(false);
-        NavDest = NavDestination.MovingToResource;
+        //Worker will initially move to resource
+        resourceCount = 0;
+        resourceGraphic.SetActive(false);
+        navDest = NavDestination.MovingToResource;
     }
 
     void Update()
@@ -58,34 +57,35 @@ public class WorkerAI : MonoBehaviour
             ui.transform.eulerAngles = Vector3.zero;
             ui.transform.eulerAngles += Vector3.up * yrot;
         }
-        
+       
         // Determine if the worker reached his destination
-        if (Vector3.Distance(transform.position,agent.pathEndPosition) <= 0.4f)
-        {
-            if (NavDest == NavDestination.MovingToFoundation)
+        if (resourceCount > 0 && Vector3.Distance(transform.position, agent.pathEndPosition) <= 0.4f)
+        {            
+            if (navDest == NavDestination.MovingToFoundation)
             {
-                NavDest = NavDestination.MovingToResource;
-                Invoke("ExpendResource", DepositTime);
+                navDest = NavDestination.MovingToResource;
+                Invoke("ExpendResource", depositTime);
+                targetResource = JobManager.Instance.GetRandomResource();
             }
-            else if (NavDest == NavDestination.MovingToResource)
+            else if (navDest == NavDestination.MovingToResource)
             {
-                NavDest = NavDestination.MovingToFoundation;
-                Invoke("AcquireResource", CollectTime);
+                navDest = NavDestination.MovingToFoundation;
+                Invoke("AcquireResource", collectTime);
             }
         }
 
         //Set NavMeshAgent to correct destination based on mode
-        if (NavDest == NavDestination.NotMoving)
+        if (navDest == NavDestination.NotMoving)
         {
             agent.destination = gameObject.transform.position;
         }
-        if (NavDest == NavDestination.MovingToResource)
+        if (navDest == NavDestination.MovingToResource)
         {
-            agent.destination = ResourceObject.transform.position;
+            agent.destination = targetResource.transform.position;
         }
-        if (NavDest == NavDestination.MovingToFoundation)
+        if (navDest == NavDestination.MovingToFoundation)
         {
-            agent.destination = FoundationObject.transform.position;
+            agent.destination = targetFoundation.transform.position;
         }
     }
 
@@ -96,21 +96,21 @@ public class WorkerAI : MonoBehaviour
 
     void AcquireResource()
     {
-        ResourceGraphic.SetActive(true);
-        if(ResourceObject.GetComponent<ResourceHandler>())
+        resourceGraphic.SetActive(true);
+        if(targetResource.GetComponent<ResourceHandler>())
         {
-            ResourceCount = ResourceObject.GetComponent<ResourceHandler>().getResource();
+            resourceCount = targetResource.GetComponent<ResourceHandler>().getResource();
         }        
-        NavDest = NavDestination.MovingToFoundation;
+        navDest = NavDestination.MovingToFoundation;
     }
 
     void ExpendResource()
     {
-        ResourceGraphic.SetActive(false);
-        if(FoundationObject.GetComponent<FoundationHandler>())
+        resourceGraphic.SetActive(false);
+        if(targetFoundation.GetComponent<FoundationHandler>())
         {
-            FoundationObject.GetComponent<FoundationHandler>().GiveResource(ResourceCount);
+            targetFoundation.GetComponent<FoundationHandler>().GiveResource(resourceCount);
         }        
-        NavDest = NavDestination.MovingToResource;
+        navDest = NavDestination.MovingToResource;
     }
 }
