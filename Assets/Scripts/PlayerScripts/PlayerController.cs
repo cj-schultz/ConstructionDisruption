@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,7 +28,9 @@ public class PlayerController : MonoBehaviour
         rayDirectionLeft = -transform.right * yellPrefab.transform.localScale.x / 2;
         rayDirectionRight = transform.right * yellPrefab.transform.localScale.x / 2;
     }
-	
+
+    private bool yelling = false;
+
 	void Update ()
     {
         //
@@ -90,6 +93,8 @@ public class PlayerController : MonoBehaviour
         {
             rot *= Quaternion.AngleAxis(turnSpeed * Time.deltaTime * 1f, Vector3.up);
         }
+
+#if true
         if (Input.GetKey(KeyCode.Space))
         {
             // Yell if the cooldown is up
@@ -98,9 +103,32 @@ public class PlayerController : MonoBehaviour
                 Yell();                
             }
         }
-        
+#else
+        if(Input.GetKeyDown(KeyCode.Space) && !yelling)
+        {
+            yelling = true;
+            StartCoroutine("DoYelling");
+        }
+        else if(Input.GetKeyUp(KeyCode.Space) && yelling)
+        {
+            yelling = false;
+            StopCoroutine("DoYelling");
+        }
+#endif
+
         transform.position += direction * Time.deltaTime * speed;
         transform.localRotation = rot;
+    }
+
+    private IEnumerator DoYelling()
+    {
+        while(true)
+        {
+            GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, transform.localRotation) as GameObject;
+            AdjustYellInitialScale(yellBlock);
+
+            yield return new WaitForSeconds(.1f);
+        }
     }
 
     // Spawns and clips the yell block
@@ -112,6 +140,11 @@ public class PlayerController : MonoBehaviour
         GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, transform.localRotation) as GameObject;
         yellCooldownTimeLeft = yellCooldown;
 
+        AdjustYellInitialScale(yellBlock);
+    }
+
+    private void AdjustYellInitialScale(GameObject yellBlock)
+    {        
         // Just a little padding to scale the yell block down more.
         float scaleEpsilon = 0.1f;
 

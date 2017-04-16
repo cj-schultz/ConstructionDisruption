@@ -10,13 +10,17 @@ public class YellPhysics : MonoBehaviour
 
     public LayerMask wallClippers;
 
-    private float centerOffsetY;
-    private Rigidbody rb = null;
-    private float secondsElapsed = 0;    
+    private float centerOffsetY;    
+    private float secondsElapsed = 0;
 
-	void Start ()
+    private Rigidbody rb;
+    private MeshRenderer mesh;
+
+    void Start ()
     {
-        rb = this.GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
+        mesh = GetComponentInChildren<MeshRenderer>();
+
         centerOffsetY = transform.localScale.y / 2;
         transform.position = new Vector3(transform.position.x, transform.position.y + centerOffsetY, transform.position.z);        
     }
@@ -45,6 +49,7 @@ public class YellPhysics : MonoBehaviour
 
             if (hitsInfo.Length > 0)
             {
+                // @TODO: Account for multiple hit points, so it can squeeze through a doorway or something
                 //for (int i = 0; i < hitsInfo.Length; i++)
                 for (int i = 0; i < 1; i++)
                 {
@@ -107,6 +112,11 @@ public class YellPhysics : MonoBehaviour
             //
 
             Vector3 direction = Vector3.zero;
+
+            // Fade out the material over time
+            Color c = mesh.material.color;
+            c.a = 1 - (secondsElapsed / lengthOfYell);
+            mesh.material.color = c;
 
             if (secondsElapsed < lengthOfYell) // the yell will stay active for lengthOfYell amount of seconds
             {
