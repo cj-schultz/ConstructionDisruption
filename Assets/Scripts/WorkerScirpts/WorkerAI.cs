@@ -86,10 +86,8 @@ public class WorkerAI : MonoBehaviour
         }
     }
 
-    private float hitEnrageTime = 2f;
     public void HitByYell(Vector3 force)
     {
-        float hitTimeDifference = Time.time - lastHitTime;
         rb.AddForce(force, ForceMode.Force);
     }
 

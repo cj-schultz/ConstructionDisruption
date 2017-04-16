@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jobBlueprint:
-    secondsToHourRatio: 100
+    secondsToHourRatio: 5
     startHour: 9
     endHour: 5
     numOfDays: 2
