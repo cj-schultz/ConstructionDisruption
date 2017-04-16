@@ -51,11 +51,14 @@ public class WorkerAI : MonoBehaviour
 
     void Update()
     {
-        ui.transform.LookAt(player.transform);
-        float yrot = ui.transform.eulerAngles.y;
-        ui.transform.eulerAngles = Vector3.zero;
-        ui.transform.eulerAngles += Vector3.up * yrot;
-
+        if(player)
+        {
+            ui.transform.LookAt(player.transform);
+            float yrot = ui.transform.eulerAngles.y;
+            ui.transform.eulerAngles = Vector3.zero;
+            ui.transform.eulerAngles += Vector3.up * yrot;
+        }
+        
         // Determine if the worker reached his destination
         if (Vector3.Distance(transform.position,agent.pathEndPosition) <= 0.4f)
         {
@@ -94,14 +97,20 @@ public class WorkerAI : MonoBehaviour
     void AcquireResource()
     {
         ResourceGraphic.SetActive(true);
-        ResourceCount = ResourceObject.GetComponent<ResourceHandler>().getResource();
+        if(ResourceObject.GetComponent<ResourceHandler>())
+        {
+            ResourceCount = ResourceObject.GetComponent<ResourceHandler>().getResource();
+        }        
         NavDest = NavDestination.MovingToFoundation;
     }
 
     void ExpendResource()
     {
         ResourceGraphic.SetActive(false);
-        FoundationObject.GetComponent<FoundationHandler>().GiveResource(ResourceCount);
+        if(FoundationObject.GetComponent<FoundationHandler>())
+        {
+            FoundationObject.GetComponent<FoundationHandler>().GiveResource(ResourceCount);
+        }        
         NavDest = NavDestination.MovingToResource;
     }
 }
