@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   yellExpansion: 0.1
-  yellStrength: 10
+  yellStrength: 70
   lengthOfYell: 0.5
   wallClippers:
     serializedVersion: 2

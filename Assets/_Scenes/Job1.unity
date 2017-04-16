@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jobBlueprint:
-    secondsToHourRatio: 5
+    secondsToHourRatio: 100
     startHour: 9
     endHour: 5
     numOfDays: 2
@@ -2500,17 +2500,17 @@ Prefab:
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
       propertyPath: m_Acceleration
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 54099763987155774, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
       propertyPath: m_Mass
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
       propertyPath: m_StoppingDistance
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
@@ -3944,41 +3944,27 @@ Prefab:
     - target: {fileID: 114528999959764438, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114528999959764438, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114242742592260182, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114242742592260182, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20325185701227240, guid: 40fb34958ad1c3f4b942351c3fa32816,
+    - target: {fileID: 114725548698551772, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
-      propertyPath: m_BackGroundColor.r
-      value: 0.7607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 20325185701227240, guid: 40fb34958ad1c3f4b942351c3fa32816,
-        type: 2}
-      propertyPath: m_BackGroundColor.g
-      value: 0.7607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 20325185701227240, guid: 40fb34958ad1c3f4b942351c3fa32816,
-        type: 2}
-      propertyPath: m_BackGroundColor.b
-      value: 0.7607844
+      propertyPath: rechargeRate
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
@@ -5683,6 +5669,11 @@ Prefab:
       propertyPath: FoundationObject
       value: 
       objectReference: {fileID: 228823871}
+    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
+        type: 2}
+      propertyPath: m_Acceleration
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
   m_IsPrefabParent: 0
@@ -6704,6 +6695,11 @@ Prefab:
     - target: {fileID: 1628528184648276, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
       propertyPath: m_Name
       value: Enemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
+        type: 2}
+      propertyPath: m_Acceleration
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}

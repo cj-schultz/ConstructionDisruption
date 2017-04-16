@@ -106,9 +106,6 @@ public class PlayerUI : MonoBehaviour
             minutesText = "45";
         }
 
-
-
-
         // Update text
         timeText.text = currentHour + ":" + minutesText + (isMorning ? " AM" : " PM");
 
@@ -126,7 +123,11 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateYellCooldown()
     {
+#if false
         yellCooldownImage.fillAmount = (playerController.yellCooldown - playerController.yellCooldownTimeLeft) / playerController.yellCooldown;
         //yellCooldownText.text = (int)Mathf.Clamp(playerController.yellCooldownTimeLeft, 0, playerController.yellCooldownTimeLeft) + "";
+#else
+        yellCooldownImage.fillAmount = playerController.yellSecondsLeft / playerController.maxYellSeconds;
+#endif
     }
 }

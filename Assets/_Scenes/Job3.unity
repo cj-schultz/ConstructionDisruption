@@ -1468,40 +1468,6 @@ Prefab:
       propertyPath: FoundationObject
       value: 
       objectReference: {fileID: 1921553841}
-    - target: {fileID: 54099763987155774, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_Drag
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_Speed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_Acceleration
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 54099763987155774, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_Mass
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_StoppingDistance
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
-        type: 2}
-      propertyPath: m_AngularSpeed
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 1628528184648276, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c8a08348ff863047b9877bce267fc76, type: 2}
   m_IsPrefabParent: 0
@@ -3111,15 +3077,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114725548698551772, guid: 40fb34958ad1c3f4b942351c3fa32816,
+    - target: {fileID: 114528999959764438, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
-      propertyPath: yellPrefab
-      value: 
-      objectReference: {fileID: 1880302730715800, guid: 894830793bb0ae14d81b9bae570d7cb9,
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114528999959764438, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
-    - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -34.77
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114242742592260182, guid: 40fb34958ad1c3f4b942351c3fa32816,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114242742592260182, guid: 40fb34958ad1c3f4b942351c3fa32816,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
@@ -5173,7 +5149,7 @@ Prefab:
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
       propertyPath: m_StoppingDistance
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}

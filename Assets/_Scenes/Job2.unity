@@ -2586,17 +2586,17 @@ Prefab:
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
       propertyPath: m_Acceleration
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 54099763987155774, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
       propertyPath: m_Mass
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
       propertyPath: m_StoppingDistance
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
@@ -6035,7 +6035,7 @@ Prefab:
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}
       propertyPath: m_StoppingDistance
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 195675474163612268, guid: 2c8a08348ff863047b9877bce267fc76,
         type: 2}

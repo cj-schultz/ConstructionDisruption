@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class YellPhysics : MonoBehaviour
+public class Yell : MonoBehaviour
 {
     public float speed;
     public float yellExpansion;
@@ -24,7 +23,7 @@ public class YellPhysics : MonoBehaviour
         centerOffsetY = transform.localScale.y / 2;
         transform.position = new Vector3(transform.position.x, transform.position.y + centerOffsetY, transform.position.z);        
     }
-
+    
     void Update()
     {
         if (Time.timeScale != 0) {
@@ -35,7 +34,7 @@ public class YellPhysics : MonoBehaviour
             //
             // Yell block clipping
             //        
-            float maxDistance = 10f;
+            float maxDistance = 5f;
             float scaleEpsilon = .5f;
             float rayEpsilon = .05f;
 
@@ -45,11 +44,14 @@ public class YellPhysics : MonoBehaviour
             Quaternion orientation = transform.localRotation;
 
             RaycastHit[] hitsInfo;
-            hitsInfo = Physics.BoxCastAll(center, halfExtents, boxcastDir, orientation, maxDistance, wallClippers);
+            hitsInfo = Physics.BoxCastAll(center, halfExtents, boxcastDir, orientation, maxDistance, wallClippers);            
+            //ExtDebug.DrawBoxCastBox(center, halfExtents, orientation, boxcastDir, maxDistance, Color.red);
 
             if (hitsInfo.Length > 0)
             {
-                // @TODO: Account for multiple hit points, so it can squeeze through a doorway or something
+                //ExtDebug.DrawBoxCastOnHit(center, halfExtents, orientation, boxcastDir, hitsInfo[0].distance, Color.magenta);
+
+                // @TODO(colin): Account for multiple hit points, so it can squeeze through a doorway or something
                 //for (int i = 0; i < hitsInfo.Length; i++)
                 for (int i = 0; i < 1; i++)
                 {
@@ -61,15 +63,21 @@ public class YellPhysics : MonoBehaviour
                     // coming out of the exact predicted contact point, and two other ones with padding on either side.
                     //Debug.DrawRay(hitsInfo[i].point, -transform.forward * maxDistance, Color.black);
                     Ray exactRay = new Ray(hitsInfo[i].point, -transform.forward * maxDistance);
-                    collisionPointFoundOnYellBlock = Physics.Raycast(exactRay, out hitInfo, maxDistance);
+                    collisionPointFoundOnYellBlock = Physics.Raycast(exactRay, out hitInfo, maxDistance);                    
 
-                    //Debug.DrawRay(hitsInfo[i].point + -transform.right * rayEpsilon, -transform.forward * maxDistance, Color.cyan);
-                    Ray leftPadRay = new Ray(hitsInfo[i].point + -transform.right * rayEpsilon, -transform.forward * maxDistance);
-                    if (!collisionPointFoundOnYellBlock) collisionPointFoundOnYellBlock = Physics.Raycast(leftPadRay, out hitInfo, maxDistance);
+                    if(!collisionPointFoundOnYellBlock || (collisionPointFoundOnYellBlock && hitInfo.transform != transform))
+                    {
+                        //Debug.DrawRay(hitsInfo[i].point + -transform.right * rayEpsilon, -transform.forward * maxDistance, Color.cyan);
+                        Ray leftPadRay = new Ray(hitsInfo[i].point + -transform.right * rayEpsilon, -transform.forward * maxDistance);
+                        collisionPointFoundOnYellBlock = Physics.Raycast(leftPadRay, out hitInfo, maxDistance);
+                    }
 
-                    //Debug.DrawRay(hitsInfo[i].point + transform.right * rayEpsilon, -transform.forward * maxDistance, Color.yellow);
-                    Ray rightPadRay = new Ray(hitsInfo[i].point + transform.right * rayEpsilon, -transform.forward * maxDistance);
-                    if (!collisionPointFoundOnYellBlock) collisionPointFoundOnYellBlock = Physics.Raycast(rightPadRay, out hitInfo, maxDistance);
+                    if (!collisionPointFoundOnYellBlock || (collisionPointFoundOnYellBlock && hitInfo.transform != transform))
+                    {
+                        //Debug.DrawRay(hitsInfo[i].point + transform.right * rayEpsilon, -transform.forward * maxDistance, Color.yellow);
+                        Ray rightPadRay = new Ray(hitsInfo[i].point + transform.right * rayEpsilon, -transform.forward * maxDistance);
+                        collisionPointFoundOnYellBlock = Physics.Raycast(rightPadRay, out hitInfo, maxDistance);
+                    }
 
                     // If we found the collision on the yell block, proceed
                     if (collisionPointFoundOnYellBlock && hitInfo.transform == transform)
@@ -82,7 +90,7 @@ public class YellPhysics : MonoBehaviour
                         Debug.DrawLine(hitsInfo[i].point, centerOfWall, Color.cyan);
                         Debug.DrawLine(centerOfWall, hitInfo.point, Color.blue);
 
-                        // Only do the transformations if the wall would have hit this frame
+                        // Only do the transformations if the wall would have hit 5 frames from now
                         if (hitsInfo[0].distance <= Vector3.Distance(transform.position, transform.position + deltaPosition * 5))
                         {
                             // Find the amount we need to scale down based on where the yell block will collide                        
@@ -137,7 +145,7 @@ public class YellPhysics : MonoBehaviour
         {
             other.GetComponent<WorkerAI>().HitByYell(transform.forward * yellStrength);
         }
-        else
+        else if(other.tag != "Yell")
         {
             Destroy(gameObject);
         }

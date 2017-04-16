@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 /*
@@ -58,7 +57,7 @@ public class WorkerAI : MonoBehaviour
         ui.transform.eulerAngles += Vector3.up * yrot;
 
         // Determine if the worker reached his destination
-        if (Vector3.Distance(transform.position,agent.pathEndPosition) <= 0.1f)
+        if (Vector3.Distance(transform.position,agent.pathEndPosition) <= 0.4f)
         {
             if (NavDest == NavDestination.MovingToFoundation)
             {
@@ -91,7 +90,7 @@ public class WorkerAI : MonoBehaviour
     public void HitByYell(Vector3 force)
     {
         float hitTimeDifference = Time.time - lastHitTime;
-        rb.AddForce(force, ForceMode.Impulse);
+        rb.AddForce(force, ForceMode.Force);
     }
 
     void AcquireResource()
