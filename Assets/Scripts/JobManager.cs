@@ -72,6 +72,7 @@ public class JobManager : MonoBehaviour
         }
         
         gameOverUI.gameObject.SetActive(true);
+        Time.timeScale = 0; // added this, testing
         gameOverUI.Setup(finishedLastDayOfJob);
     }
 

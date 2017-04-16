@@ -71,7 +71,17 @@ public class PlayerUI : MonoBehaviour
         // Update hour
         if(secondsElapsedForCurrentHour >= JobManager.Instance.jobBlueprint.secondsToHourRatio)
         {
-            currentHour++;            
+            currentHour++;
+
+            // @TODO(Colin): AM/PM switch should happen at 11:59, not 12:00 // could also just use military time :D
+            if (currentHour == 12)
+            {
+                isMorning = !isMorning;
+            }
+            else if (currentHour > 12)
+            {
+                currentHour = 1;
+            }
 
             secondsElapsedForCurrentHour = 0f;
         }
@@ -96,18 +106,14 @@ public class PlayerUI : MonoBehaviour
             minutesText = "45";
         }
 
-        // @TODO(Colin): AM/PM switch should happen at 11:59, not 12:00
-        if (currentHour > 12)
-        {
-            currentHour = 1;
-            isMorning = !isMorning;
-        }
+
+
 
         // Update text
         timeText.text = currentHour + ":" + minutesText + (isMorning ? " AM" : " PM");
 
         // We reached the end of the day. Evoke the event 
-        if (!isMorning && currentHour >= endOfDayHour)
+        if (!isMorning && !(currentHour > 10) && currentHour >= endOfDayHour)
         {
             if (OnDayEnd != null)
             {

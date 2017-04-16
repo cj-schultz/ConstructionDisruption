@@ -41,7 +41,7 @@ public class GameOverUI : MonoBehaviour
         {
             jobText.text = "Job " + (JobManager.CurrentGameState.currentJobNumber);
             dayText.text = dayString;
-        }        
+        }
     }
 
     public void StartNextDay()
