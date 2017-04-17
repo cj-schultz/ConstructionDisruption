@@ -8,22 +8,18 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class MenuItemSelector : MonoBehaviour
 {
-    [SerializeField]
-    private SceneFader sceneFader;
+    public SceneFader sceneFader;
+
+    public TextMeshPro highScoreText;
 
     [Header("Sounds")]
-    [SerializeField]
-    private AudioClip upSound;
-    [SerializeField]
-    private AudioClip downSound;
+    public AudioClip upSound;
+    public AudioClip downSound;
 
     [Header("Item selection stuff")]
-    [SerializeField]
-    private TextMeshPro[] menuItems;
-    [SerializeField]
-    private Color selectionColor;
-    [SerializeField]
-    private Color lowHighlightColor;
+    public TextMeshPro[] menuItems;
+    public Color selectionColor;
+    public Color lowHighlightColor;
 
     private AudioSource audioSource;
 
@@ -50,6 +46,15 @@ public class MenuItemSelector : MonoBehaviour
         if(!DoesGameStateExistOnDisk())
         {
             menuItems[1].color = Color.black;
+        }
+
+        if(PlayerPrefs.HasKey("highScore"))
+        {
+            highScoreText.text = "$" + PlayerPrefs.GetInt("highScore");
+        }
+        else
+        {
+            highScoreText.text = "$0";
         }
 
         StartCoroutine("GlowCurrentSelection");

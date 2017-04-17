@@ -69,7 +69,16 @@ public class GameOverUI : MonoBehaviour
         {
             startNextButtonText.text = "return to menu";
             workerQuitMessageText.text = "";
-            // @TODO: Save high score to disk   
+
+            // Save high score to disk   
+            if(net < 0)
+            {
+                PlayerPrefs.SetInt("highScore", 0);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("highScore", net);
+            }            
         }
         else if (finishedLastDayOfJob || foundationWasCompleted)
         {

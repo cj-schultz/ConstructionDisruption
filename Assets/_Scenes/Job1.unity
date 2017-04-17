@@ -2465,7 +2465,7 @@ MonoBehaviour:
     endHour: 5
     numOfDays: 5
     dailyBaseSalary: 1000
-    workersToAddEveryDay: 3
+    workersToAddEveryDay: 4
   sceneFader: {fileID: 1697302371}
   playerUI: {fileID: 1884633412}
   gameOverUI: {fileID: 1649039130}
