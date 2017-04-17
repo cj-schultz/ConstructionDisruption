@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoral: 100
-  moralLostOnHit: 1
+  moralLostOnHit: 2
   ui: {fileID: 1549078728182624}
   moralBar: {fileID: 114813213825333514}
 --- !u!114 &114964818120310920
