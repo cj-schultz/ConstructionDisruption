@@ -1780,6 +1780,7 @@ MonoBehaviour:
   statusFillBar: {fileID: 644189073}
   statusText: {fileID: 149749005}
   statusBarFillSpeed: 0.5
+  currentCount: 0
 --- !u!1 &231015099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2739,6 +2740,7 @@ MonoBehaviour:
   - {fileID: 1661832264}
   - {fileID: 201532452}
   - {fileID: 2113494546}
+  disruptionAmount: 10
   jobBlueprint:
     secondsToHourRatio: 5
     startHour: 9

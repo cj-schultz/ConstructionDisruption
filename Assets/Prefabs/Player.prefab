@@ -1405,7 +1405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510dcd8eefde56c40ba3565edcd91c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 5
   turnSpeed: 225
   yellPrefab: {fileID: 1880302730715800, guid: 894830793bb0ae14d81b9bae570d7cb9, type: 2}
   yellFirePoint: {fileID: 4844457240497882}
