@@ -21,12 +21,15 @@ public class GameOverUI : MonoBehaviour
     public TextMeshProUGUI workerQuitMessageText;
     public TextMeshProUGUI bossMessageText;
     public TextMeshProUGUI startNextButtonText;
+    public GameObject newHighScoreText;
 
     private bool finishedLastDayOfJob;
     private bool foundationWasCompleted;
 
     public void Setup(int previousDayNumber, bool _finishedLastDayOfJob, int workersDemoralized)
     {
+        newHighScoreText.SetActive(false);
+
         finishedLastDayOfJob = _finishedLastDayOfJob;
         foundationWasCompleted = JobManager.CurrentGameState.currentJobFoundationCompletion >= 1;
 
@@ -85,13 +88,17 @@ public class GameOverUI : MonoBehaviour
                     }
                     else
                     {
+                        // New high Score!!
                         PlayerPrefs.SetInt("highScore", net);
+                        newHighScoreText.SetActive(true);
                     }
                 }
             }
             else
             {
+                // New high Score!!
                 PlayerPrefs.SetInt("highScore", net);
+                newHighScoreText.SetActive(true);
             }                        
         }
         else if (finishedLastDayOfJob || foundationWasCompleted)
