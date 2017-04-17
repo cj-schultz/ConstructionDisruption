@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Rigidbody),typeof(WorkerMovement))]
 public class WorkerBehaviour : MonoBehaviour
 {
     public float maxMoral = 200;
@@ -9,14 +10,18 @@ public class WorkerBehaviour : MonoBehaviour
     public Image moralBar;
 
     private Rigidbody rb;
+    private WorkerMovement workerMovement;
+
     private GameObject player;
 
     private float currentMoral;
     private bool lostAllMoral;
-
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        workerMovement = GetComponent<WorkerMovement>();
+
         player = GameObject.FindWithTag("Player");
 
         currentMoral = maxMoral;
