@@ -53,14 +53,12 @@ public class GameOverUI : MonoBehaviour
 
         // Summary text
         savingsMoneyText.text = "$" + savings;
-        dailyPayMoneyText.text = "$" + dailyPay;
-        employeeSalaryMoneyText.text = "$" + employeeSalary;
+        savingsMoneyText.color = savings >= 0 ? greenMoneyColor : redMoneyColor;
+        dailyPayMoneyText.text = "$" + dailyPay;        
         employeeSalaryCountText.text = "Employee Salary(" + JobManager.CurrentGameState.currentWorkerCount + ")";
+        employeeSalaryMoneyText.text = "-$" + employeeSalary;
         netMoneyText.text = "$" + net;
-        if(net < 0)
-        {
-            netMoneyText.color = redMoneyColor;
-        }
+        netMoneyText.color = net >= 0 ? greenMoneyColor : redMoneyColor;
 
         // Message text
         workerQuitMessageText.text = GetWorkerQuitMessage(workersDemoralized);
