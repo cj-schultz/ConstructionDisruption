@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoral: 110
-  moralLostOnHit: 4
+  moralLostOnHit: 2
   ui: {fileID: 1549078728182624}
   moralBar: {fileID: 114813213825333514}
   meshes:
