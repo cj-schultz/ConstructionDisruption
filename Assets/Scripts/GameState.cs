@@ -5,7 +5,7 @@ public class GameState
     public int currentWorkerCount;
     public int currentJobNumber;
     public int currentDayNumber;
-    public float currentMoney;
+    public int currentMoney;
     public float currentJobFoundationCompletion; // Ranges between 0 and 1
 
     // Constructor
