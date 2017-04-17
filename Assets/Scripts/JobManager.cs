@@ -8,7 +8,8 @@ public class JobManager : MonoBehaviour
     public static JobManager Instance;
 
     public static GameState CurrentGameState;
-    public static string GAME_STATE_DISK_PATH = "/saved_user_info.dat";
+    public static string EXE_GAME_STATE_DISK_PATH = "/exe_saved_user_info.dat";
+    public static string EDITOR_GAME_STATE_DISK_PATH = "/editor_saved_user_info.dat";
 
     public GameObject workerPrefab;
     public GameObject[] spawnPoints;    
@@ -162,7 +163,12 @@ public class JobManager : MonoBehaviour
             return;
         }
 
-        string path = Application.persistentDataPath + JobManager.GAME_STATE_DISK_PATH;
+#if UNITY_EDITOR
+        string path = Application.persistentDataPath + JobManager.EDITOR_GAME_STATE_DISK_PATH;
+#else
+        string path = Application.persistentDataPath + JobManager.EXE_GAME_STATE_DISK_PATH;
+#endif
+
         Stream file = File.Open(path, FileMode.Create);
 
         BinaryFormatter formatter = new BinaryFormatter();

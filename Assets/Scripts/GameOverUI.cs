@@ -95,4 +95,13 @@ public class GameOverUI : MonoBehaviour
             sceneFader.FadeTo(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }        
     }
+
+    public void Btn_SaveAndQuit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }

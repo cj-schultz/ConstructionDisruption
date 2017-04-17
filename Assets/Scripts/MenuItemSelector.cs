@@ -125,6 +125,11 @@ public class MenuItemSelector : MonoBehaviour
                 case 2: // Settings
                     break;
                 case 3: // Exit
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
                     break;
             }           
         }
@@ -144,7 +149,11 @@ public class MenuItemSelector : MonoBehaviour
     private void LoadGameStateFromDisk()
     {
         GameState state = null;
-        string path = Application.persistentDataPath + JobManager.GAME_STATE_DISK_PATH;
+#if UNITY_EDITOR
+        string path = Application.persistentDataPath + JobManager.EDITOR_GAME_STATE_DISK_PATH;
+#else
+        string path = Application.persistentDataPath + JobManager.EXE_GAME_STATE_DISK_PATH;
+#endif
 
         if (File.Exists(path))
         {
@@ -152,19 +161,24 @@ public class MenuItemSelector : MonoBehaviour
             FileStream file = File.Open(path, FileMode.Open);
 
             state = (GameState)formatter.Deserialize(file);
-            JobManager.CurrentGameState = state;
-
+            
             file.Close();
         }
         else
         {
-            // @TODO
+            // @TODO: Handle failure. Just like my dad always told me.
         }
+        
+        JobManager.CurrentGameState = state;
     }
 
     private void DeleteGameStateFromDisk()
     {
-        string path = Application.persistentDataPath + JobManager.GAME_STATE_DISK_PATH;
+#if UNITY_EDITOR
+        string path = Application.persistentDataPath + JobManager.EDITOR_GAME_STATE_DISK_PATH;
+#else
+        string path = Application.persistentDataPath + JobManager.EXE_GAME_STATE_DISK_PATH;
+#endif
         if (File.Exists(path))
         {
             File.Delete(path);
@@ -173,7 +187,11 @@ public class MenuItemSelector : MonoBehaviour
 
     private bool DoesGameStateExistOnDisk()
     {
-        string path = Application.persistentDataPath + JobManager.GAME_STATE_DISK_PATH;
+#if UNITY_EDITOR
+        string path = Application.persistentDataPath + JobManager.EDITOR_GAME_STATE_DISK_PATH;
+#else
+        string path = Application.persistentDataPath + JobManager.EXE_GAME_STATE_DISK_PATH;
+#endif
         return File.Exists(path);
     }
 
