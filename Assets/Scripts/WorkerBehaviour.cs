@@ -63,6 +63,7 @@ public class WorkerBehaviour : MonoBehaviour
         }
     }
 
+    // @TODO(colin): Make these editor-facing
     private float currentSuppresionLength;
     private float lastHitTime = 0;
 

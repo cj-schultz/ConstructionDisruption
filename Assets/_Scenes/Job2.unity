@@ -1715,7 +1715,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3a78b9ede9f05c74f80756fb6b50a778, type: 2}
+  - {fileID: 2100000, guid: 93fb1c9e91a997f4091e9ae9b053eab1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2746,6 +2746,7 @@ MonoBehaviour:
     numOfDays: 5
     dailyBaseSalary: 1000
     workersToAddEveryDay: 3
+    workerSalary: 125
   sceneFader: {fileID: 1697302371}
   playerUI: {fileID: 383196345}
   gameOverUI: {fileID: 1860762987}
@@ -3228,7 +3229,7 @@ MeshFilter:
   m_Mesh: {fileID: 4300032, guid: 3227dcdd2271f3f42953473178997d8e, type: 3}
 --- !u!114 &644189073 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114480647755733616, guid: 40fb34958ad1c3f4b942351c3fa32816,
+  m_PrefabParentObject: {fileID: 114192384850014030, guid: 40fb34958ad1c3f4b942351c3fa32816,
     type: 2}
   m_PrefabInternal: {fileID: 994035022}
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -4753,15 +4754,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114725548698551772, guid: 40fb34958ad1c3f4b942351c3fa32816,
+    - target: {fileID: 114528999959764438, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
-      propertyPath: yellPrefab
-      value: 
-      objectReference: {fileID: 1880302730715800, guid: 894830793bb0ae14d81b9bae570d7cb9,
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114528999959764438, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
-    - target: {fileID: 4555843654079164, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -34.77
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114242742592260182, guid: 40fb34958ad1c3f4b942351c3fa32816,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114242742592260182, guid: 40fb34958ad1c3f4b942351c3fa32816,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
@@ -7388,6 +7399,10 @@ Prefab:
       propertyPath: sceneFader
       value: 
       objectReference: {fileID: 1697302371}
+    - target: {fileID: 1318020376282646, guid: af38ba500256e7148a5f15800f57f4f7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af38ba500256e7148a5f15800f57f4f7, type: 2}
   m_IsPrefabParent: 0

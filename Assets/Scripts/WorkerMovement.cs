@@ -86,6 +86,10 @@ public class WorkerMovement : MonoBehaviour
     {
         enraged = true;
 
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
         Vector3 point = Vector3.zero;
 
         // Iterate 60 times to try to pick the best point, yeah it's really inefficient, but you can't notice

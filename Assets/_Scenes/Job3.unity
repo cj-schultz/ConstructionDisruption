@@ -775,9 +775,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finalCount: 100
-  statusFillBar: {fileID: 994035024}
+  statusFillBar: {fileID: 959316187}
   statusText: {fileID: 994035023}
   statusBarFillSpeed: 0.5
+  currentCount: 0
 --- !u!1 &231015099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1652,7 @@ MonoBehaviour:
     numOfDays: 5
     dailyBaseSalary: 1000
     workersToAddEveryDay: 3
+    workerSalary: 125
   sceneFader: {fileID: 1697302371}
   playerUI: {fileID: 994035025}
   gameOverUI: {fileID: 1649039130}
@@ -3135,6 +3137,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ebdc32c603c0f74a8df3ff23c55e8e0, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &959316187 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114192384850014030, guid: 40fb34958ad1c3f4b942351c3fa32816,
+    type: 2}
+  m_PrefabInternal: {fileID: 994035022}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &980638175
 GameObject:
   m_ObjectHideFlags: 0
@@ -3263,22 +3271,22 @@ Prefab:
     - target: {fileID: 114528999959764438, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114528999959764438, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114242742592260182, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114242742592260182, guid: 40fb34958ad1c3f4b942351c3fa32816,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 40fb34958ad1c3f4b942351c3fa32816, type: 2}
@@ -3289,12 +3297,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 994035022}
   m_Script: {fileID: 1453722849, guid: b5bd0d848a86e48409fe56688d66ecb5, type: 3}
---- !u!114 &994035024 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114480647755733616, guid: 40fb34958ad1c3f4b942351c3fa32816,
-    type: 2}
-  m_PrefabInternal: {fileID: 994035022}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &994035025 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114104330737703342, guid: 40fb34958ad1c3f4b942351c3fa32816,
@@ -7856,9 +7858,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finalCount: 100
-  statusFillBar: {fileID: 994035024}
+  statusFillBar: {fileID: 959316187}
   statusText: {fileID: 994035023}
   statusBarFillSpeed: 0.5
+  currentCount: 0
 --- !u!23 &1921553843
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8348,7 +8351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResourceStart: 100
-  ResourcesPerVisit: 3
+  ResourcesPerVisit: 5
 --- !u!1 &2086943538
 GameObject:
   m_ObjectHideFlags: 0

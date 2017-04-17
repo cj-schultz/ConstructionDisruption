@@ -48,7 +48,7 @@ public class GameOverUI : MonoBehaviour
         // @TODO: Take out the hard coded base employee salary
         int savings = JobManager.CurrentGameState.currentMoney;
         int dailyPay = JobManager.Instance.jobBlueprint.dailyBaseSalary;
-        int employeeSalary = 200 * JobManager.CurrentGameState.currentWorkerCount;
+        int employeeSalary = JobManager.Instance.jobBlueprint.workerSalary * JobManager.CurrentGameState.currentWorkerCount;
 
         int net = savings + dailyPay - employeeSalary;
         JobManager.CurrentGameState.currentMoney = net;
@@ -73,14 +73,26 @@ public class GameOverUI : MonoBehaviour
             workerQuitMessageText.text = "";
 
             // Save high score to disk   
-            if(net < 0)
+            if (PlayerPrefs.HasKey("highScore"))
             {
-                PlayerPrefs.SetInt("highScore", 0);
+                int hs = PlayerPrefs.GetInt("highScore");
+
+                if(net > hs)
+                {
+                    if(net < 0)
+                    {
+                        PlayerPrefs.SetInt("highScore", 0);
+                    }
+                    else
+                    {
+                        PlayerPrefs.SetInt("highScore", net);
+                    }
+                }
             }
             else
             {
                 PlayerPrefs.SetInt("highScore", net);
-            }            
+            }                        
         }
         else if (finishedLastDayOfJob || foundationWasCompleted)
         {

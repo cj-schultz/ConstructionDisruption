@@ -15,4 +15,5 @@ public class JobBlueprint
     public int dailyBaseSalary;
 
     public int workersToAddEveryDay;
+    public int workerSalary;
 }

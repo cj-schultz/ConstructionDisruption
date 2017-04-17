@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic;
 
 //This component is placed on a foundation and keeps track of its progress towards being completed. It also allows the foundation to accept resources from AI units.
 public class FoundationHandler : MonoBehaviour
@@ -10,10 +11,7 @@ public class FoundationHandler : MonoBehaviour
     public static event FoundationEvent OnFoundationCompleted;
 
     // Note(Colin): I changed these to float because we need to divide with them to get ratios
-    //How many resources are needed for the foundation to be finished different stages
-    float stage1Count;
-    float stage2Count;
-    float stage3Count;
+    //How many resources are needed for the foundation to be finished different stages    
     public int finalCount = 100;
 
     [Header("Foundation Status UI")]
@@ -22,10 +20,25 @@ public class FoundationHandler : MonoBehaviour
     public float statusBarFillSpeed;
 
     //Keeps track of how many resources the foundation has
-    private int currentCount;
+    [HideInInspector]
+    public int currentCount;
+
+    private List<GameObject> otherFoundations;
 
     void Start()
     {
+        otherFoundations = new List<GameObject>();
+        GameObject[] tempFoundations = GameObject.FindGameObjectsWithTag("Foundation");
+        for (int i = 0; i < tempFoundations.Length; i++)
+        {
+            if(gameObject != tempFoundations[i])
+            {
+                otherFoundations.Add(tempFoundations[i]);
+            }
+        }
+
+        Debug.Log(otherFoundations.Count);
+
         // Derive the current count from the game state's foundation fill percentage
         currentCount = (int)(JobManager.CurrentGameState.currentJobFoundationCompletion * finalCount);
 
@@ -35,31 +48,17 @@ public class FoundationHandler : MonoBehaviour
     // Note(Colin): I moved the CurrentCount checking to giveResource, just cause we don't need to check it every frame,
     //              we will only need to check it when the resource count changes
     //Called by a worker's AI when it wants to give resources to this foundation
-    public void GiveResource(int Given)
+    public void GiveResource(int given)
     {
-        currentCount = currentCount + Given;
+        currentCount += given;
+        for (int i = 0; i < otherFoundations.Count; i++)
+        {
+            otherFoundations[i].GetComponent<FoundationHandler>().currentCount += given;            
+        }
 
         // Update UI
         StopCoroutine("UpdateStatusGUI");
-        StartCoroutine("UpdateStatusGUI");
-                
-        if (currentCount >= stage1Count & currentCount < stage2Count)
-        {
-            //Change artwork here
-        }
-        else if (currentCount >= stage2Count & currentCount < stage3Count)
-        {
-            //Change artwork here
-        }
-        else if (currentCount >= stage3Count & currentCount < finalCount)
-        {
-            //Change artwork here
-        }
-        else if (currentCount >= finalCount)
-        {
-            //Change artwork here
-            //Also run any code connected to this foundation being finished (Ex. any end game conditions)
-        }
+        StartCoroutine("UpdateStatusGUI");                
     }
 
     private IEnumerator UpdateStatusGUI()

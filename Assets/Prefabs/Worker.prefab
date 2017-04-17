@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39bf431ef829dfc46bf55f43a86804cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoral: 100
+  maxMoral: 110
   moralLostOnHit: 1.5
   ui: {fileID: 1549078728182624}
   moralBar: {fileID: 114813213825333514}
