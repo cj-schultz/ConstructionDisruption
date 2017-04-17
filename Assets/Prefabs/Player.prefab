@@ -667,8 +667,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1743096972996786}
-  m_LocalRotation: {x: -0, y: 0.9984507, z: -0, w: -0.055644464}
-  m_LocalPosition: {x: 28.61, y: -3.801054e-17, z: -4.17}
+  m_LocalRotation: {x: 0, y: -0.29879087, z: 0, w: 0.9543186}
+  m_LocalPosition: {x: 21.1, y: -3.801054e-17, z: -32.6}
   m_LocalScale: {x: 0.1578374, y: 0.15783742, z: 0.15783742}
   m_Children:
   - {fileID: 4141263907983498}
@@ -1231,7 +1231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  turnSpeed: 145
+  turnSpeed: 225
   yellPrefab: {fileID: 1880302730715800, guid: 894830793bb0ae14d81b9bae570d7cb9, type: 2}
   yellFirePoint: {fileID: 4844457240497882}
   rechargeDelay: 0.5

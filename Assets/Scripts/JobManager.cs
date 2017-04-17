@@ -97,7 +97,9 @@ public class JobManager : MonoBehaviour
             WorkerMovement worker = Instantiate(workerPrefab, spawnPoint.transform.position, Quaternion.identity).GetComponent<WorkerMovement>();
             worker.targetResource = GetClosestResource(worker.transform.position);
             worker.targetFoundation = foundations[Random.Range(0, foundations.Length)];
-        }     
+        }
+
+        AudioManager.Instance.PlayGameLoopMusic();
         
         // Start the day
         playerUI.StartCountingTime(jobBlueprint.startHour, jobBlueprint.endHour);

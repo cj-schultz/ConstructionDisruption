@@ -57,6 +57,8 @@ public class MenuItemSelector : MonoBehaviour
             highScoreText.text = "$0";
         }
 
+        AudioManager.Instance.PlayMenuLoopMusic();
+
         StartCoroutine("GlowCurrentSelection");
     }
 
