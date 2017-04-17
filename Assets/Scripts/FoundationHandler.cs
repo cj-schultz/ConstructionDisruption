@@ -37,8 +37,6 @@ public class FoundationHandler : MonoBehaviour
             }
         }
 
-        Debug.Log(otherFoundations.Count);
-
         // Derive the current count from the game state's foundation fill percentage
         currentCount = (int)(JobManager.CurrentGameState.currentJobFoundationCompletion * finalCount);
 

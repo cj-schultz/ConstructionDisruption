@@ -23,15 +23,30 @@ public class GameOverUI : MonoBehaviour
     public TextMeshProUGUI startNextButtonText;
     public GameObject newHighScoreText;
 
+    [Header("Shop stuff")]
+    public TextMeshProUGUI descriptionText;
+    public Button buyButton;
+    public TextMeshProUGUI coughDropsText;
+    public TextMeshProUGUI constructionDisriptionText;
+    public TextMeshProUGUI yeezysText;
+    public TextMeshProUGUI inventoryItem1;
+    public TextMeshProUGUI inventoryItem2;
+    public TextMeshProUGUI inventoryItem3;
+
     private bool finishedLastDayOfJob;
     private bool foundationWasCompleted;
 
+    private int currentSelectedShopItemIndex;
+
     public void Setup(int previousDayNumber, bool _finishedLastDayOfJob, int workersDemoralized)
-    {
+    {      
         newHighScoreText.SetActive(false);
 
         finishedLastDayOfJob = _finishedLastDayOfJob;
         foundationWasCompleted = JobManager.CurrentGameState.currentJobFoundationCompletion >= 1;
+
+        // Shop setup
+        SetupShop();
 
         // Day text
         string dayString = "";
@@ -48,7 +63,6 @@ public class GameOverUI : MonoBehaviour
             jobText.text = "Job " + (JobManager.CurrentGameState.currentJobNumber);
         }
 
-        // @TODO: Take out the hard coded base employee salary
         int savings = JobManager.CurrentGameState.currentMoney;
         int dailyPay = JobManager.Instance.jobBlueprint.dailyBaseSalary;
         int employeeSalary = JobManager.Instance.jobBlueprint.workerSalary * JobManager.CurrentGameState.currentWorkerCount;
@@ -110,6 +124,71 @@ public class GameOverUI : MonoBehaviour
             startNextButtonText.text = "start next day";
         }
     } 
+
+    private void SetupShop()
+    {
+        currentSelectedShopItemIndex = -1;
+        descriptionText.text = "";
+        buyButton.interactable = false;
+
+        coughDropsText.color = Color.white;
+        constructionDisriptionText.color = Color.white;
+        yeezysText.color = Color.white;
+
+        inventoryItem1.text = "";
+        inventoryItem2.text = "";
+        inventoryItem3.text = "";
+        // @TODO: Setup inventory
+        switch (JobManager.CurrentGameState.inventory.Count)
+        {
+            case 0:                                
+                break;
+        }
+    }
+
+    public void Btn_SelectShopItem(int itemIndex)
+    {
+        currentSelectedShopItemIndex = itemIndex;
+        buyButton.interactable = true;
+
+        coughDropsText.color = Color.white;
+        constructionDisriptionText.color = Color.white;
+        yeezysText.color = Color.white;
+
+        switch (currentSelectedShopItemIndex)
+        {
+            case 1: // Cough Drops
+                coughDropsText.color = Color.red;
+                descriptionText.text = "Cough drops will sooth your throat. You will be able to recharge your yell meter quicker. One day use.";
+                break;
+            case 2: // Construction Distruption
+                constructionDisriptionText.color = Color.red;
+                descriptionText.text = "Disrupt your consctruction and sabotage your foundation building. This will reduce the completeness of the foundation by 10%. One day use.";
+                break;
+            case 3: // Yeezies
+                yeezysText.color = Color.red;
+                descriptionText.text = "These sick kicks will have you running like my nose when I have the flu. Press shift for a short burst of speed. One day use";
+                break;
+        }
+    }
+
+    public void Btn_BuySelectedShopItem()
+    {
+        int amountToSpend = 0;
+
+        switch(currentSelectedShopItemIndex)
+        {
+            case 1: // Cough Drops
+                amountToSpend = 100;
+                break;
+            case 2: // Construction Distruption
+                amountToSpend = 200;
+                break;
+            case 3: // Yeezies
+                amountToSpend= 150;
+                break;
+        }
+    }
 
     public void Btn_StartNextDay()
     {

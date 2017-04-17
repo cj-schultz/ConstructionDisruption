@@ -1,4 +1,6 @@
 ﻿// This class holds variables necessary to know the current player's state
+using System.Collections.Generic;
+
 [System.Serializable]
 public class GameState
 {
@@ -8,6 +10,9 @@ public class GameState
     public int currentMoney;
     public float currentJobFoundationCompletion; // Ranges between 0 and 1
 
+    public List<ShopItem> inventory;
+    public int[] inventoryCount;
+
     // Constructor
     public GameState()
     {
@@ -16,5 +21,12 @@ public class GameState
         currentDayNumber = 1;
         currentMoney = 0;
         currentJobFoundationCompletion = 0;
+        inventory = new List<ShopItem>();
+        inventoryCount = new int[3];
+        inventoryCount[0] = inventoryCount[1] = inventoryCount[2] = 0;
     }
 }
+
+[System.Serializable]
+public enum ShopItem { CoughDrop, ConstructionDisruption, Yeezys }
+
