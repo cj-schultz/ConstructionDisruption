@@ -75,12 +75,20 @@ public class WorkerMovement : MonoBehaviour
         }
         else if (navDest == NavDestination.MovingToResource)
         {
-            agent.destination = targetResource.transform.position;
+            agent.destination = GetClosestCornerOnObject(targetResource);
         }
         else if (navDest == NavDestination.MovingToFoundation)
         {
-            agent.destination = targetFoundation.transform.position;            
+            agent.destination = GetClosestCornerOnObject(targetFoundation);
         }
+    }
+
+    private Vector3 GetClosestCornerOnObject(GameObject thing)
+    {        
+        BoxCollider thingCollider = thing.GetComponent<BoxCollider>();
+        Vector3 closestPosition = thingCollider.bounds.ClosestPoint(transform.position);
+
+        return closestPosition;
     }
 
     private void AcquireResource()
