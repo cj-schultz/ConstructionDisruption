@@ -43,11 +43,11 @@ public class GameOverUI : MonoBehaviour
             jobText.text = "Job " + (JobManager.CurrentGameState.currentJobNumber);
             dayText.text = dayString;
         }
-    }
+    } 
 
     public void Btn_StartNextDay()
     {
-		// @Note(colin): This is assuming we are loading the same job as last time
+        // This job number is always right because we increase it in the JobManager
 		sceneFader.FadeTo("Job" + JobManager.CurrentGameState.currentJobNumber);
     }
 }
