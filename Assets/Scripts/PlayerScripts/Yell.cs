@@ -143,7 +143,7 @@ public class Yell : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            other.GetComponent<WorkerAI>().HitByYell(transform.forward * yellStrength);
+            other.GetComponent<Worker>().HitByYell(transform.forward * yellStrength);
         }
         else if(other.tag != "Yell")
         {

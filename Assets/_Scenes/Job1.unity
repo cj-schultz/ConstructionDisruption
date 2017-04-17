@@ -2445,7 +2445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ffc131f7cdb8c45aba7a6515aa21c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1628528184648276, guid: 2c8a08348ff863047b9877bce267fc76,
+  workerPrefab: {fileID: 1628528184648276, guid: 2c8a08348ff863047b9877bce267fc76,
     type: 2}
   spawnPoints:
   - {fileID: 803750774}
@@ -2460,11 +2460,12 @@ MonoBehaviour:
   - {fileID: 198574644}
   - {fileID: 15095887}
   jobBlueprint:
-    secondsToHourRatio: 5
-    startHour: 9
-    endHour: 5
-    numOfDays: 2
+    secondsToHourRatio: 4
+    startHour: 10
+    endHour: 1
+    numOfDays: 3
     dailyBaseSalary: 1000
+    workersToAddEveryDay: 2
   sceneFader: {fileID: 1697302371}
   playerUI: {fileID: 1884633412}
   gameOverUI: {fileID: 1649039130}

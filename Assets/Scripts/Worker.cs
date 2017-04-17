@@ -9,7 +9,7 @@ Workers also need a NavMeshAgent placed on them for this to function. A NavMesh 
  */
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody))]
-public class WorkerAI : MonoBehaviour
+public class Worker : MonoBehaviour
 {
     // The resource graphic that the worker "holds", this should be a child of the Enemy prefab.
     public GameObject resourceGraphic;        

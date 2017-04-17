@@ -12,5 +12,7 @@ public class JobBlueprint
     public int endHour;
    
     public int numOfDays;
-    public int dailyBaseSalary;    
+    public int dailyBaseSalary;
+
+    public int workersToAddEveryDay;
 }

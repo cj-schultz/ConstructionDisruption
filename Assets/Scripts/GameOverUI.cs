@@ -14,6 +14,7 @@ public class GameOverUI : MonoBehaviour
     
     public void Setup(bool finishedLastDayOfJob)
     {
+        // Day text
         string dayString = "";
         if (JobManager.CurrentGameState.currentDayNumber == 1)
         {
@@ -31,7 +32,7 @@ public class GameOverUI : MonoBehaviour
             dayString = "Day " + (JobManager.CurrentGameState.currentDayNumber - 1) + " / " + JobManager.Instance.jobBlueprint.numOfDays;
         }
 
-
+        // Job text
         if (finishedLastDayOfJob)
         {
             jobText.text = "Job " + (JobManager.CurrentGameState.currentJobNumber - 1);            

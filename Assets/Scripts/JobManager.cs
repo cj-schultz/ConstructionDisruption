@@ -10,7 +10,7 @@ public class JobManager : MonoBehaviour
     public static GameState CurrentGameState;
     public static string GAME_STATE_DISK_PATH = "/saved_user_info.dat";
 
-    public GameObject enemyPrefab;
+    public GameObject workerPrefab;
     public GameObject[] spawnPoints;    
 
     [Header("HOLY SHIT IT'S A JOB BLUEPRINT")]
@@ -55,12 +55,24 @@ public class JobManager : MonoBehaviour
     }
 
     public void StartDay()
-    {
-        List<GameObject> availableSpawnPoints = new List<GameObject>(spawnPoints);
+    {        
+        gameOverUI.gameObject.SetActive(false);
+        if (CurrentGameState == null)
+        {
+            CurrentGameState = new GameState();
+        }
 
-        int enemiesToSpawn = 4;
+        // Clear the current worker count and the fill bar amount if it is the first day of a new job
+        if(CurrentGameState.currentDayNumber == 1)
+        {
+            CurrentGameState.currentWorkerCount = 0;
+            CurrentGameState.currentJobFoundationCompletion = 0;
+        }
 
         // Spawn Enemies
+        List<GameObject> availableSpawnPoints = new List<GameObject>(spawnPoints);
+        int enemiesToSpawn = CurrentGameState.currentWorkerCount + jobBlueprint.workersToAddEveryDay;
+        CurrentGameState.currentWorkerCount = enemiesToSpawn;     
         for (int i = 0; i < enemiesToSpawn; i++)
         {
             // Just incase we have more workers than spawn points
@@ -74,18 +86,11 @@ public class JobManager : MonoBehaviour
             availableSpawnPoints.Remove(spawnPoint);
 
             // Spawn the worker and assign values
-            WorkerAI worker = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity).GetComponent<WorkerAI>();
+            Worker worker = Instantiate(workerPrefab, spawnPoint.transform.position, Quaternion.identity).GetComponent<Worker>();
             worker.targetResource = GetClosestResource(worker.transform.position);
             worker.targetFoundation = foundations[Random.Range(0, foundations.Length)];
         }     
-
-        gameOverUI.gameObject.SetActive(false);
-
-        if (CurrentGameState == null)
-        {
-            CurrentGameState = new GameState();
-        }
-
+        
         // Start the day
         playerUI.StartCountingTime(jobBlueprint.startHour, jobBlueprint.endHour);
     }
