@@ -115,6 +115,7 @@ public class MenuItemSelector : MonoBehaviour
             switch(currentSelectionIndex)
             {
                 case 0: // New Game
+                    JobManager.CurrentGameState = new GameState();
                     sceneFader.FadeTo("Job1");
                     acceptingInputs = false;
                     break;

@@ -6,6 +6,9 @@ public class GameOverUI : MonoBehaviour
 {
     public SceneFader sceneFader;
 
+    public Color greenMoneyColor;
+    public Color redMoneyColor;
+
     public TextMeshProUGUI jobText;
     public TextMeshProUGUI dayText;
     public TextMeshProUGUI savingsMoneyText;
@@ -18,39 +21,26 @@ public class GameOverUI : MonoBehaviour
     public TextMeshProUGUI startNextButtonText;
 
     private bool finishedLastDayOfJob;
+    private bool foundationWasCompleted;
 
-    public void Setup(bool _finishedLastDayOfJob, int workersDemoralized)
+    public void Setup(int previousDayNumber, bool _finishedLastDayOfJob, int workersDemoralized)
     {
         finishedLastDayOfJob = _finishedLastDayOfJob;
+        foundationWasCompleted = JobManager.CurrentGameState.currentJobFoundationCompletion >= 1;
 
         // Day text
         string dayString = "";
-        if (JobManager.CurrentGameState.currentDayNumber == 1)
-        {
-            if (finishedLastDayOfJob)
-            {
-                dayString = "Day " + JobManager.Instance.jobBlueprint.numOfDays + " / " + JobManager.Instance.jobBlueprint.numOfDays;
-            }
-            else
-            {
-                dayString = "Day 1 / " + JobManager.Instance.jobBlueprint.numOfDays;
-            }
-        }
-        else
-        {
-            dayString = "Day " + (JobManager.CurrentGameState.currentDayNumber - 1) + " / " + JobManager.Instance.jobBlueprint.numOfDays;
-        }
+        dayString = "Day " + previousDayNumber + " / " + JobManager.Instance.jobBlueprint.numOfDays;
+        dayText.text = dayString;
 
         // Job text
-        if (finishedLastDayOfJob)
+        if (finishedLastDayOfJob || foundationWasCompleted)
         {
-            jobText.text = "Job " + (JobManager.CurrentGameState.currentJobNumber - 1);
-            dayText.text = dayString;
+            jobText.text = "Job " + (JobManager.CurrentGameState.currentJobNumber - 1);            
         }
         else
         {
             jobText.text = "Job " + (JobManager.CurrentGameState.currentJobNumber);
-            dayText.text = dayString;
         }
 
         // @TODO: Take out the hard coded base employee salary
@@ -67,13 +57,23 @@ public class GameOverUI : MonoBehaviour
         employeeSalaryMoneyText.text = "$" + employeeSalary;
         employeeSalaryCountText.text = "Employee Salary(" + JobManager.CurrentGameState.currentWorkerCount + ")";
         netMoneyText.text = "$" + net;
+        if(net < 0)
+        {
+            netMoneyText.color = redMoneyColor;
+        }
 
         // Message text
-        workerQuitMessageText.text = "Wow, you made " + workersDemoralized + (workersDemoralized == 1 ? " worker" : " workers") + " quit. You're a shitty person, but you saved some money!";
-        // @TODO: boss message
+        workerQuitMessageText.text = GetWorkerQuitMessage(workersDemoralized);
+        bossMessageText.text = GetBossMessage();
 
         // Button text
-        if (finishedLastDayOfJob)
+        if(JobManager.CurrentGameState.currentJobNumber > JobManager.NUMBER_OF_JOBS)
+        {
+            startNextButtonText.text = "return to menu";
+            workerQuitMessageText.text = "";
+            // @TODO: Save high score to disk   
+        }
+        else if (finishedLastDayOfJob || foundationWasCompleted)
         {
             startNextButtonText.text = "start next job";
         }
@@ -85,7 +85,11 @@ public class GameOverUI : MonoBehaviour
 
     public void Btn_StartNextDay()
     {
-        if(finishedLastDayOfJob)
+        if (JobManager.CurrentGameState.currentJobNumber > JobManager.NUMBER_OF_JOBS)
+        {
+            sceneFader.FadeTo("MainMenu");
+        }
+        else if (finishedLastDayOfJob || foundationWasCompleted)
         {
             // This job number is always right because we increase it in the JobManager
             sceneFader.FadeTo("Job" + JobManager.CurrentGameState.currentJobNumber);
@@ -98,10 +102,46 @@ public class GameOverUI : MonoBehaviour
 
     public void Btn_SaveAndQuit()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        sceneFader.FadeTo("MainMenu");
+    }
+
+    private string GetWorkerQuitMessage(int workersDemoralized)
+    {
+        string s = "";
+
+        if(workersDemoralized == 0)
+        {
+            s = "None of your workers quit! They must really like you.";
+        }
+        else
+        {
+            s = "Wow, you made " + workersDemoralized + (workersDemoralized == 1 ? " worker" : " workers") + " quit. You're a shitty person, but you saved some money!";
+        }
+
+        return s;
+    }
+
+    private string GetBossMessage()
+    {
+        string s = "";
+
+        if(JobManager.CurrentGameState.currentJobNumber > JobManager.NUMBER_OF_JOBS)
+        {
+            s = "Boss: " + "Well, I can't say it's been nice working with you. I don't have any more jobs for you. Bye.";
+        }
+        else if (finishedLastDayOfJob)
+        {
+            s = "Boss: " + "It looks like your not capable of finishing this job. I'm going to assign you to another job on the other side of town.";
+        }
+        else if (foundationWasCompleted)
+        {
+            s = "Boss: " + "Good job! You and your workers completed the job. I'll start you on a new job bright and early tomorrow.";
+        }
+        else
+        {
+            s = "Boss: " + "Hey, looks like your crew didn't get much work done today. I'll give you some more workers.";
+        }
+
+        return s;
     }
 }

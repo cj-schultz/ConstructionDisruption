@@ -1921,7 +1921,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_enableKerning: 1
@@ -2442,6 +2442,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneFader: {fileID: 0}
+  greenMoneyColor: {r: 0, g: 0.6666667, b: 0.08627451, a: 1}
+  redMoneyColor: {r: 0.8745099, g: 0, b: 0, a: 1}
   jobText: {fileID: 114678095624883908}
   dayText: {fileID: 114645258193979656}
   savingsMoneyText: {fileID: 114619261629326536}
@@ -2681,8 +2683,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000061035, y: -140}
-  m_SizeDelta: {x: 1091, y: 111}
+  m_AnchoredPosition: {x: 0.000022888, y: -153}
+  m_SizeDelta: {x: 1244, y: 137}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224193476072636762
 RectTransform:

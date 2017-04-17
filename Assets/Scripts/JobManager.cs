@@ -7,6 +7,7 @@ public class JobManager : MonoBehaviour
 {
     public static JobManager Instance;
 
+    public static int NUMBER_OF_JOBS = 3;
     public static GameState CurrentGameState;
     public static string EXE_GAME_STATE_DISK_PATH = "/exe_saved_user_info.dat";
     public static string EDITOR_GAME_STATE_DISK_PATH = "/editor_saved_user_info.dat";
@@ -50,11 +51,13 @@ public class JobManager : MonoBehaviour
     void OnEnable()
     {
         PlayerUI.OnDayEnd += HandleDayEnd;
+        FoundationHandler.OnFoundationCompleted += HandleDayEnd;
     }
 
     void OnDisable()
     {
         PlayerUI.OnDayEnd -= HandleDayEnd;
+        FoundationHandler.OnFoundationCompleted -= HandleDayEnd;
     }
 
     public void StartDay()
@@ -132,22 +135,37 @@ public class JobManager : MonoBehaviour
     private void HandleDayEnd()
     {
         bool finishedLastDayOfJob = false;
+        int previousDayNumber = CurrentGameState.currentDayNumber;
 
         // Update game state        
-        if(CurrentGameState.currentDayNumber >= jobBlueprint.numOfDays)
+        if (CurrentGameState.currentJobFoundationCompletion < 1)
         {
-            CurrentGameState.currentJobNumber++;
-            CurrentGameState.currentDayNumber = 1;
-            finishedLastDayOfJob = true;
+            if (CurrentGameState.currentDayNumber >= jobBlueprint.numOfDays)
+            {
+                CurrentGameState.currentJobNumber++;
+                CurrentGameState.currentDayNumber = 1;
+                finishedLastDayOfJob = true;
+            }
+            else
+            {
+                CurrentGameState.currentDayNumber++;
+            }
         }
         else
         {
-            CurrentGameState.currentDayNumber++;
+            // @Note(colin): If the foundation gets completed, just go to the next day
+            CurrentGameState.currentJobNumber++;
+            CurrentGameState.currentDayNumber = 1;
+        }                
+
+        if(CurrentGameState.currentJobNumber > NUMBER_OF_JOBS)
+        {
+            DeleteGameStateFromDisk();
         }
-        
+
         gameOverUI.gameObject.SetActive(true);
-        Time.timeScale = 0; // added this, testing
-        gameOverUI.Setup(finishedLastDayOfJob, workersDemoralized);
+        Time.timeScale = 0; // Stop background activity while the game over UI is up
+        gameOverUI.Setup(previousDayNumber, finishedLastDayOfJob, workersDemoralized);
     }
 
     void OnApplicationQuit()
@@ -178,4 +196,16 @@ public class JobManager : MonoBehaviour
         file.Close();
     }
 
+    private void DeleteGameStateFromDisk()
+    {
+#if UNITY_EDITOR
+        string path = Application.persistentDataPath + JobManager.EDITOR_GAME_STATE_DISK_PATH;
+#else
+        string path = Application.persistentDataPath + JobManager.EXE_GAME_STATE_DISK_PATH;
+#endif
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
 }

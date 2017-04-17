@@ -6,6 +6,9 @@ using System.Collections;
 //This component is placed on a foundation and keeps track of its progress towards being completed. It also allows the foundation to accept resources from AI units.
 public class FoundationHandler : MonoBehaviour
 {
+    public delegate void FoundationEvent();
+    public static event FoundationEvent OnFoundationCompleted;
+
     // Note(Colin): I changed these to float because we need to divide with them to get ratios
     //How many resources are needed for the foundation to be finished different stages
     float stage1Count;
@@ -75,6 +78,14 @@ public class FoundationHandler : MonoBehaviour
         {
             statusFillBar.fillAmount = Mathf.MoveTowards(statusFillBar.fillAmount, completionRatio, Time.deltaTime * statusBarFillSpeed);
             yield return null;
-        }                    
+        }     
+        
+        if(completionRatio >= 1)
+        {
+            if(OnFoundationCompleted != null)
+            {
+                OnFoundationCompleted();
+            }
+        }
     }
 }
