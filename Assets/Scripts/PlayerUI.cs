@@ -8,16 +8,16 @@ public class PlayerUI : MonoBehaviour
     public delegate void TimeThresholdHit();
     public static event TimeThresholdHit OnDayEnd;
 
-    [SerializeField]
-    private PlayerController playerController;
+    public PlayerController playerController;
+    public Color coughDropColor;
 
     [Header("UI Components")]
-    [SerializeField]
-    private TextMeshProUGUI yellCooldownText;
-    [SerializeField]
-    private Image yellCooldownImage;
-    [SerializeField]
-    private TextMeshProUGUI timeText;
+    public TextMeshProUGUI yellCooldownText;
+    public Image yellCooldownImage;
+    public Image yellCooldownCenter;
+    public TextMeshProUGUI timeText;
+    public GameObject runUI;
+    public Image runCooldownImage;
 
     private bool countingTime = false;
 
@@ -52,6 +52,19 @@ public class PlayerUI : MonoBehaviour
         // Since we are updating minute text every 15 minutes, we need this ratio
         secondsToQuaterHourRatio = JobManager.Instance.jobBlueprint.secondsToHourRatio / 4f;
         countingTime = true;
+
+        // Apply cough drop item if we have it
+        if (JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.CoughDrop)] > 0)
+        {
+            yellCooldownCenter.color = coughDropColor;
+        }
+
+        runUI.SetActive(false);
+        // Allow running if we have em
+        if (JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.Yeezys)] > 0)
+        {
+            runUI.SetActive(true);
+        }
     }
 
     void Update()
@@ -61,7 +74,12 @@ public class PlayerUI : MonoBehaviour
             UpdateTimeText();
         }        
      
-        UpdateYellCooldown();                
+        if(runUI.activeInHierarchy)
+        {
+            UpdateRunCooldown();
+        }
+
+        UpdateYellCooldown();                        
     }
 
     private void UpdateTimeText()
@@ -119,6 +137,21 @@ public class PlayerUI : MonoBehaviour
 
             countingTime = false;
         }
+    }
+
+    private void UpdateRunCooldown()
+    {
+        float amount = playerController.currentRunCooldown / playerController.runCooldown;
+
+        if(amount == 1)
+        {
+            runCooldownImage.fillAmount = amount;
+        }
+        else
+        {
+            runCooldownImage.fillAmount = 1 - amount;
+        }
+        
     }
 
     private void UpdateYellCooldown()

@@ -211,7 +211,7 @@ public class GameOverUI : MonoBehaviour
                 break;
             case 3: // Yeezies
                 yeezysText.color = Color.red;
-                descriptionText.text = "These sick kicks will have you running like my nose when I have the flu. Press shift for a short burst of speed. One day use";
+                descriptionText.text = "These sick kicks will have you running like my nose when I have the flu. Press <size=135%>shift</size> for a short burst of speed. One day use";
                 break;
         }
     }

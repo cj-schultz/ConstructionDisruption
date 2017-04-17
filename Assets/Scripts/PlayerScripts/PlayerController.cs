@@ -27,6 +27,16 @@ public class PlayerController : MonoBehaviour
     private Vector3 rayDirectionLeft;
     private Vector3 rayDirectionRight;
 
+    // Run stuff
+    public float runCooldown = 4f;    
+    public float runMultiplier = 2f;
+    public float runLength = 2f;
+    [HideInInspector]
+    public float currentRunCooldown;
+
+    private bool runEnabled = false;
+    private bool canRunRightNow = false;    
+
     void Awake ()
     {        
         rb = GetComponent<Rigidbody>();    
@@ -43,6 +53,14 @@ public class PlayerController : MonoBehaviour
         {
             rechargeRate *= coughDropMultiplier;
             rechargeDelay /= coughDropMultiplier;
+        }
+
+        // Allow running if we have em
+        if (JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.Yeezys)] > 0)
+        {
+            runEnabled = true;
+            canRunRightNow = true;
+            currentRunCooldown = runCooldown;
         }
     }
         
@@ -85,11 +103,37 @@ public class PlayerController : MonoBehaviour
 
         Vector3 direction = Vector3.zero;
         Quaternion rot = transform.rotation;
-              
+
+        float speedMulti = 1;
+
+        // If we are currently running
+        if (runEnabled && !canRunRightNow)
+        {
+            currentRunCooldown -= Time.deltaTime;
+
+            if(runCooldown - currentRunCooldown <= runLength)
+            {
+                speedMulti = runMultiplier;
+            }
+
+            if(currentRunCooldown <= 0)
+            {
+                canRunRightNow = true;
+                currentRunCooldown = runCooldown;
+            }
+        }
+                
+        if (canRunRightNow && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+        {
+            speedMulti = runMultiplier;
+            canRunRightNow = false;
+            currentRunCooldown = runCooldown;
+        }
+        
         // Standard movement stuff, use force to move so he doesn't phase through walls
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
-            rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
+            rb.AddForce(transform.forward * speed * speedMulti, ForceMode.VelocityChange);
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
@@ -97,7 +141,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            rb.AddForce(transform.forward * speed * -1f, ForceMode.VelocityChange);
+            rb.AddForce(-transform.forward * speed * speedMulti, ForceMode.VelocityChange);
         }
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
