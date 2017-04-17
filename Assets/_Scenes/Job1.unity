@@ -2465,7 +2465,7 @@ MonoBehaviour:
     endHour: 5
     numOfDays: 5
     dailyBaseSalary: 1000
-    workersToAddEveryDay: 3
+    workersToAddEveryDay: 4
   sceneFader: {fileID: 1697302371}
   playerUI: {fileID: 1884633412}
   gameOverUI: {fileID: 1649039130}
@@ -3657,7 +3657,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 32.9
+      value: 40.1
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3665,7 +3665,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 2.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalRotation.x
@@ -4501,7 +4501,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.3
+      value: -6.8
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.y
@@ -4509,7 +4509,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 33.5
+      value: 26.5
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6447,7 +6447,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6.5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6455,7 +6455,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 19.9
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6671,7 +6671,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 32.9
+      value: 37.8
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6679,7 +6679,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 33.5
+      value: 34.6
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalRotation.x
@@ -7460,7 +7460,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 34.7
+      value: 38.4
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.y
@@ -7468,7 +7468,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -33.7
+      value: -31.3
       objectReference: {fileID: 0}
     - target: {fileID: 4844532265512676, guid: 1292d665c3b403344969169c295c9fff, type: 2}
       propertyPath: m_LocalRotation.x

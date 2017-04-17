@@ -767,6 +767,13 @@ MonoBehaviour:
   moralLostOnHit: 2
   ui: {fileID: 1549078728182624}
   moralBar: {fileID: 114813213825333514}
+  meshes:
+  - {fileID: 137314891385943792}
+  - {fileID: 137314008474346730}
+  - {fileID: 137632412081118082}
+  - {fileID: 137875442897472086}
+  enragedWorkerMaterial: {fileID: 2100000, guid: 2e194d1942399024ead48509ad445669,
+    type: 2}
 --- !u!114 &114964818120310920
 MonoBehaviour:
   m_ObjectHideFlags: 1

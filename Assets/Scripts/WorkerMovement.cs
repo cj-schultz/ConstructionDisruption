@@ -8,7 +8,7 @@ This component can be placed on workers to allow them to move to and from differ
 Workers also need a NavMeshAgent placed on them for this to function. A NavMesh must also be baked into the level.
  */
 
-[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class WorkerMovement : MonoBehaviour
 {
     // The resource graphic that the worker "holds", this should be a child of the Enemy prefab.
@@ -30,41 +30,107 @@ public class WorkerMovement : MonoBehaviour
     private int resourceCount;
 
     private NavMeshAgent agent;
-    private Rigidbody rb;    
+    private Rigidbody rb;
+
+    private float originalSpeed;
+    private float originalAcceleration;
+    private bool enraged;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();        
-        
+        agent = GetComponent<NavMeshAgent>();
+        originalSpeed = agent.speed;
+        originalAcceleration = agent.acceleration;
+
         //Worker will initially move to resource
         resourceCount = 0;
         resourceGraphic.SetActive(false);
         navDest = NavDestination.MovingToResource;
 
         AssignDestination();
-    }
+    }    
 
     void Update()
-    {        
-        // Determine if the worker reached his destination
-        if (!agent.pathPending && Vector3.Distance(transform.position, agent.pathEndPosition) <= 0.2f)
+    {      
+        if(enraged)
         {
-            if (navDest == NavDestination.MovingToFoundation)
+            if(Vector3.Distance(transform.position, agent.pathEndPosition) <= 0.2f)
             {
-                navDest = NavDestination.NotMoving;
-                Invoke("ExpendResource", depositTime);
-            }
-            else if (navDest == NavDestination.MovingToResource)
-            {
-                navDest = NavDestination.NotMoving;
-                Invoke("AcquireResource", collectTime);
+                DeEnrage();
             }
         }
         else
         {
+            // Determine if the worker reached his destination
+            if (!agent.pathPending && Vector3.Distance(transform.position, agent.pathEndPosition) <= 0.2f)
+            {
+                if (navDest == NavDestination.MovingToFoundation)
+                {
+                    navDest = NavDestination.NotMoving;
+                    Invoke("ExpendResource", depositTime);
+                }
+                else if (navDest == NavDestination.MovingToResource)
+                {
+                    navDest = NavDestination.NotMoving;
+                    Invoke("AcquireResource", collectTime);
+                }
+            }
+            else
+            {
+                AssignDestination();
+            }
+        }                
+    }
+    
+    public void StartEnragedMovement()
+    {
+        enraged = true;
+
+        Vector3 point = Vector3.zero;
+
+        // Iterate 60 times to try to pick the best point, yeah it's really inefficient, but you can't notice
+        for (int i = 0; i < 60; i++)
+        {
+            // Pick random point from a 40 unit radius from us
+            Vector3 randomPoint = transform.position + Random.insideUnitSphere * 40;            
+            NavMeshHit hit;
+
+            // Make sure the point is a valid nav mesh position
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                point = hit.position;
+
+                // Make sure the point is closer to the current agent destination
+                if (Vector3.Distance(randomPoint, agent.destination) < Vector3.Distance(transform.position, agent.destination))
+                {                                   
+                    break;
+                }                    
+            }
+
+            if(i == 29 && point == Vector3.zero)
+            {
+                Debug.LogError("NOOOOOOO");
+            }
+        }
+
+        Debug.DrawRay(point, Vector3.up, Color.blue, 3.0f);    
+
+        agent.destination = point;
+        agent.speed += 5f;
+        agent.acceleration += 20f;
+    }                   
+
+    public void DeEnrage()
+    {
+        if(enraged)
+        {
+            agent.speed = originalSpeed;
+            agent.acceleration = originalAcceleration;
+
+            enraged = false;
             AssignDestination();
         }        
-    }    
+    }
 
     private void AssignDestination()
     {

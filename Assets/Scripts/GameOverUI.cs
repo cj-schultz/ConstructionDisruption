@@ -69,7 +69,7 @@ public class GameOverUI : MonoBehaviour
         netMoneyText.text = "$" + net;
 
         // Message text
-        workerQuitMessageText.text = "Wow, you made " + workersDemoralized + " workers quit. You're a shitty person, but you saved some money!";
+        workerQuitMessageText.text = "Wow, you made " + workersDemoralized + (workersDemoralized == 1 ? " worker" : " workers") + " quit. You're a shitty person, but you saved some money!";
         // @TODO: boss message
 
         // Button text
