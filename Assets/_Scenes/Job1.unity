@@ -2565,12 +2565,13 @@ MonoBehaviour:
   - {fileID: 333576644}
   - {fileID: 198574644}
   - {fileID: 15095887}
+  disruptionAmount: 10
   jobBlueprint:
     secondsToHourRatio: 5
     startHour: 9
     endHour: 5
     numOfDays: 5
-    dailyBaseSalary: 10000
+    dailyBaseSalary: 1000
     workersToAddEveryDay: 4
     workerSalary: 125
   sceneFader: {fileID: 1697302371}

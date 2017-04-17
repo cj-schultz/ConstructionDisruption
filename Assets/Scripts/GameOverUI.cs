@@ -207,7 +207,7 @@ public class GameOverUI : MonoBehaviour
                 break;
             case 2: // Construction Distruption
                 constructionDisriptionText.color = Color.red;
-                descriptionText.text = "Disrupt your consctruction and sabotage your foundation building. This will reduce the completeness of the foundation by 10%. One day use.";
+                descriptionText.text = "Disrupt your consctruction and sabotage your foundation building. This will reduce the completeness of the foundation by " + JobManager.Instance.disruptionAmount + "%. One day use.";
                 break;
             case 3: // Yeezies
                 yeezysText.color = Color.red;

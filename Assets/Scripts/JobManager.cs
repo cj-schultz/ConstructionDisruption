@@ -13,7 +13,9 @@ public class JobManager : MonoBehaviour
     public static string EDITOR_GAME_STATE_DISK_PATH = "/editor_saved_user_info.dat";
 
     public GameObject workerPrefab;
-    public GameObject[] spawnPoints;    
+    public GameObject[] spawnPoints;
+
+    public int disruptionAmount = 10;
 
     [Header("HOLY SHIT IT'S A JOB BLUEPRINT")]
     public JobBlueprint jobBlueprint;        
@@ -69,6 +71,15 @@ public class JobManager : MonoBehaviour
         }
 
         workersDemoralized = 0;
+
+        if (CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.ConstructionDisruption)] > 0)
+        {
+            CurrentGameState.currentJobFoundationCompletion -= disruptionAmount / 100f;                        
+            if(CurrentGameState.currentJobFoundationCompletion < 0)
+            {
+                CurrentGameState.currentJobFoundationCompletion = 0;
+            }
+        }
 
         // Clear the current worker count and the fill bar amount if it is the first day of a new job
         if (CurrentGameState.currentDayNumber == 1)
