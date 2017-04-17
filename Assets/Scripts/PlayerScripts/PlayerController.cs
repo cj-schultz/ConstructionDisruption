@@ -8,14 +8,11 @@ public class PlayerController : MonoBehaviour
     public GameObject yellPrefab;
     public Transform yellFirePoint;
 
-#if false
-    public float yellCooldown = 2; // in seconds
-    // Make this public to read, but privite to write
-    public float yellCooldownTimeLeft { get; private set; }
-#else
     public float rechargeDelay = 0.5f;
     public float rechargeRate = 0.5f;
     public float maxYellSeconds = 2f;
+
+    public float coughDropMultiplier = 2f;
 
     [HideInInspector]
     public float yellSecondsLeft = 2f;
@@ -23,8 +20,6 @@ public class PlayerController : MonoBehaviour
     private bool yelling = false;
     private bool canYell = true;
     private float timeYellingStopped;
-
-#endif
 
     private Rigidbody rb;
     private BoxCollider boxCollider;
@@ -42,6 +37,13 @@ public class PlayerController : MonoBehaviour
         rayDirectionRight = transform.right * yellPrefab.transform.localScale.x / 2;
 
         yellSecondsLeft = maxYellSeconds;
+
+        // Apply cough drop item if we have it
+        if (JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.CoughDrop)] > 0)
+        {
+            rechargeRate *= coughDropMultiplier;
+            rechargeDelay /= coughDropMultiplier;
+        }
     }
         
 	void Update ()
@@ -101,23 +103,6 @@ public class PlayerController : MonoBehaviour
         {
             rot *= Quaternion.AngleAxis(turnSpeed * Time.deltaTime * 1f, Vector3.up);
         }
-
-#if false
-        if(yellCooldownTimeLeft >= 0)
-        {
-            yellCooldownTimeLeft -= Time.deltaTime;
-        }  
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            // Yell if the cooldown is up
-            if (yellCooldownTimeLeft <= 0)
-            {
-                Yell();                
-            }
-        }
-#else
-
         if (!yelling)
         {
             canYell = yellSecondsLeft > 0;
@@ -155,7 +140,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-#endif
 
         transform.position += direction * Time.deltaTime * speed;
         transform.localRotation = rot;
@@ -179,7 +163,6 @@ public class PlayerController : MonoBehaviour
         //rb.AddForce(-transform.forward * 20f, ForceMode.Impulse);
 
         GameObject yellBlock = Instantiate(yellPrefab, yellFirePoint.position, transform.localRotation) as GameObject;
-        //yellCooldownTimeLeft = yellCooldown;
 
         AdjustYellInitialScale(yellBlock);
     }

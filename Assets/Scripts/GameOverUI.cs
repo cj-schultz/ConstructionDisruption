@@ -132,7 +132,7 @@ public class GameOverUI : MonoBehaviour
         List<ShopItem> itemsToRemove = new List<ShopItem>();
         for (int i = 0; i < JobManager.CurrentGameState.inventory.Count; i++)
         {
-            int countIndex = IndexOfShopItem(JobManager.CurrentGameState.inventory[i]);
+            int countIndex = JobManager.Instance.IndexOfShopItem(JobManager.CurrentGameState.inventory[i]);
             JobManager.CurrentGameState.inventoryCount[countIndex]--;
             if(JobManager.CurrentGameState.inventoryCount[countIndex] <= 0)
             {
@@ -172,13 +172,13 @@ public class GameOverUI : MonoBehaviour
             switch(JobManager.CurrentGameState.inventory[i])
             {
                 case ShopItem.CoughDrop:
-                    texts[i].text = "Cough Drop (" + JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.CoughDrop)] + ")";
+                    texts[i].text = "Cough Drop (" + JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.CoughDrop)] + ")";
                     break;
                 case ShopItem.ConstructionDisruption:
-                    texts[i].text = "Construction Disruption (" + JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.ConstructionDisruption)] + ")";
+                    texts[i].text = "Construction Disruption (" + JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.ConstructionDisruption)] + ")";
                     break;
                 case ShopItem.Yeezys:
-                    texts[i].text = "Yeezys (" + JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.Yeezys)] + ")";
+                    texts[i].text = "Yeezys (" + JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.Yeezys)] + ")";
                     break;
             }
         }        
@@ -229,21 +229,21 @@ public class GameOverUI : MonoBehaviour
                 {
                     JobManager.CurrentGameState.inventory.Add(ShopItem.CoughDrop);
                 }
-                JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.CoughDrop)]++;
+                JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.CoughDrop)]++;
                 break;
             case 2: // Construction Distruption
                 if (!JobManager.CurrentGameState.inventory.Contains(ShopItem.ConstructionDisruption))
                 {
                     JobManager.CurrentGameState.inventory.Add(ShopItem.ConstructionDisruption);
                 }
-                JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.ConstructionDisruption)]++;
+                JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.ConstructionDisruption)]++;
                 break;
             case 3: // Yeezies
                 if (!JobManager.CurrentGameState.inventory.Contains(ShopItem.Yeezys))
                 {
                     JobManager.CurrentGameState.inventory.Add(ShopItem.Yeezys);
                 }
-                JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.Yeezys)]++;                
+                JobManager.CurrentGameState.inventoryCount[JobManager.Instance.IndexOfShopItem(ShopItem.Yeezys)]++;                
                 break;
         }
 
@@ -269,27 +269,7 @@ public class GameOverUI : MonoBehaviour
         }
 
         return cost;
-    }
-
-    private int IndexOfShopItem(ShopItem item)
-    {
-        int i = 0;
-
-        switch(item)
-        {
-            case ShopItem.CoughDrop:
-                i = 0;
-                break;
-            case ShopItem.ConstructionDisruption:
-                i = 1;
-                break;
-            case ShopItem.Yeezys:
-                i = 2;
-                break;
-        }
-
-        return i;
-    }
+    }    
 
     public void Btn_StartNextDay()
     {

@@ -170,6 +170,26 @@ public class JobManager : MonoBehaviour
         gameOverUI.Setup(previousDayNumber, finishedLastDayOfJob, workersDemoralized);
     }
 
+    public int IndexOfShopItem(ShopItem item)
+    {
+        int i = 0;
+
+        switch (item)
+        {
+            case ShopItem.CoughDrop:
+                i = 0;
+                break;
+            case ShopItem.ConstructionDisruption:
+                i = 1;
+                break;
+            case ShopItem.Yeezys:
+                i = 2;
+                break;
+        }
+
+        return i;
+    }
+
     void OnApplicationQuit()
     {
         // Save state
