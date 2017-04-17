@@ -17,8 +17,12 @@ public class GameOverUI : MonoBehaviour
     public TextMeshProUGUI bossMessageText;
     public TextMeshProUGUI startNextButtonText;
 
-    public void Setup(bool finishedLastDayOfJob, int workersDemoralized)
+    private bool finishedLastDayOfJob;
+
+    public void Setup(bool _finishedLastDayOfJob, int workersDemoralized)
     {
+        finishedLastDayOfJob = _finishedLastDayOfJob;
+
         // Day text
         string dayString = "";
         if (JobManager.CurrentGameState.currentDayNumber == 1)
@@ -49,6 +53,7 @@ public class GameOverUI : MonoBehaviour
             dayText.text = dayString;
         }
 
+        // @TODO: Take out the hard coded base employee salary
         int savings = JobManager.CurrentGameState.currentMoney;
         int dailyPay = JobManager.Instance.jobBlueprint.dailyBaseSalary;
         int employeeSalary = 200 * JobManager.CurrentGameState.currentWorkerCount;
@@ -80,7 +85,14 @@ public class GameOverUI : MonoBehaviour
 
     public void Btn_StartNextDay()
     {
-        // This job number is always right because we increase it in the JobManager
-		sceneFader.FadeTo("Job" + JobManager.CurrentGameState.currentJobNumber);
+        if(finishedLastDayOfJob)
+        {
+            // This job number is always right because we increase it in the JobManager
+            sceneFader.FadeTo("Job" + JobManager.CurrentGameState.currentJobNumber);
+        }
+        else
+        {
+            sceneFader.FadeTo(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }        
     }
 }

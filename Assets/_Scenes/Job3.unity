@@ -1645,12 +1645,12 @@ MonoBehaviour:
   - {fileID: 343453802}
   - {fileID: 80295687}
   jobBlueprint:
-    secondsToHourRatio: 5
+    secondsToHourRatio: 1
     startHour: 9
     endHour: 5
     numOfDays: 5
     dailyBaseSalary: 1000
-    workersToAddEveryDay: 0
+    workersToAddEveryDay: 3
   sceneFader: {fileID: 1697302371}
   playerUI: {fileID: 994035025}
   gameOverUI: {fileID: 1649039130}
@@ -6006,6 +6006,10 @@ Prefab:
       propertyPath: sceneFader
       value: 
       objectReference: {fileID: 1697302371}
+    - target: {fileID: 1318020376282646, guid: af38ba500256e7148a5f15800f57f4f7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af38ba500256e7148a5f15800f57f4f7, type: 2}
   m_IsPrefabParent: 0
