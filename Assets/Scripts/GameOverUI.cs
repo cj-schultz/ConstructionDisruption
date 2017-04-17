@@ -22,6 +22,8 @@ public class GameOverUI : MonoBehaviour
     public TextMeshProUGUI workerQuitMessageText;
     public TextMeshProUGUI bossMessageText;
     public TextMeshProUGUI startNextButtonText;
+    public TextMeshProUGUI jobCompletionText;
+    public TextMeshProUGUI currentCashText;
     public GameObject newHighScoreText;
 
     [Header("Shop stuff")]
@@ -76,6 +78,9 @@ public class GameOverUI : MonoBehaviour
         employeeSalaryMoneyText.text = "-$" + employeeSalary;
         netMoneyText.text = "$" + net;
         netMoneyText.color = net >= 0 ? greenMoneyColor : redMoneyColor;
+        currentCashText.text = "$" + net;
+        currentCashText.color = net >= 0 ? greenMoneyColor : redMoneyColor;
+        jobCompletionText.text = (JobManager.CurrentGameState.currentJobFoundationCompletion * 100f) + "%";
 
         // Message text
         workerQuitMessageText.text = GetWorkerQuitMessage(workersDemoralized);
@@ -194,6 +199,10 @@ public class GameOverUI : MonoBehaviour
         {
             buyButton.interactable = true;
         }        
+        else
+        {
+            buyButton.interactable = false;
+        }
 
         coughDropsText.color = Color.white;
         constructionDisriptionText.color = Color.white;
@@ -247,8 +256,14 @@ public class GameOverUI : MonoBehaviour
                 break;
         }
 
+        if(amountToSpend > JobManager.CurrentGameState.currentMoney)
+        {
+            buyButton.interactable = false;
+        }
+
         UpdateInventoryText();
-        // @TODO: Update current amount of money text
+
+        currentCashText.text = "$" + JobManager.CurrentGameState.currentMoney;
     }
 
     private int CostOfItem(int itemIndex)
