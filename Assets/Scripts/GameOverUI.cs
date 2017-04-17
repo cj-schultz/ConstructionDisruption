@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class GameOverUI : MonoBehaviour
 {
@@ -109,6 +111,7 @@ public class GameOverUI : MonoBehaviour
 
     public void Btn_SaveAndQuit()
     {
+        WriteGameStateToDisk();
         sceneFader.FadeTo("MainMenu");
     }
 
@@ -138,17 +141,39 @@ public class GameOverUI : MonoBehaviour
         }
         else if (finishedLastDayOfJob)
         {
-            s = "Boss: " + "It looks like your not capable of finishing this job. I'm going to assign you to another job on the other side of town.";
+            s = "It looks like your not capable of finishing this job. I'm going to assign you to another job on the other side of town.";
         }
         else if (foundationWasCompleted)
         {
-            s = "Boss: " + "Good job! You and your workers completed the job. I'll start you on a new job bright and early tomorrow.";
+            s = "Good job! You and your workers completed the job. I'll start you on a new job bright and early tomorrow.";
         }
         else
         {
-            s = "Boss: " + "Hey, looks like your crew didn't get much work done today. I'll give you some more workers.";
+            s = "Hey, looks like your crew didn't get much work done today. I'll give you some more workers.";
         }
 
         return s;
+    }
+
+    private void WriteGameStateToDisk()
+    {
+        if (JobManager.CurrentGameState == null)
+        {
+            return;
+        }
+
+#if UNITY_EDITOR
+        string path = Application.persistentDataPath + JobManager.EDITOR_GAME_STATE_DISK_PATH;
+#else
+        string path = Application.persistentDataPath + JobManager.EXE_GAME_STATE_DISK_PATH;
+#endif
+
+        Stream file = File.Open(path, FileMode.Create);
+
+        BinaryFormatter formatter = new BinaryFormatter();
+
+        formatter.Serialize(file, JobManager.CurrentGameState);
+
+        file.Close();
     }
 }
