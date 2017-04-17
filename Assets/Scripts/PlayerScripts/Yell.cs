@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Yell : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class Yell : MonoBehaviour
     public float yellExpansion;
     public float yellStrength;
     public float lengthOfYell; // in seconds
+
+    public bool oneHitWonder = true; // is true when it should only hit a given worker once
 
     public LayerMask wallClippers;
 
@@ -15,13 +18,17 @@ public class Yell : MonoBehaviour
     private Rigidbody rb;
     private MeshRenderer mesh;
 
+    private List<GameObject> hitEnemies;
+
     void Start ()
     {
         rb = GetComponent<Rigidbody>();
         mesh = GetComponentInChildren<MeshRenderer>();
 
         centerOffsetY = transform.localScale.y / 2;
-        transform.position = new Vector3(transform.position.x, transform.position.y + centerOffsetY, transform.position.z);        
+        transform.position = new Vector3(transform.position.x, transform.position.y + centerOffsetY, transform.position.z);
+
+        hitEnemies = new List<GameObject>();
     }
     
     void Update()
@@ -143,7 +150,18 @@ public class Yell : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            other.GetComponent<Worker>().HitByYell(transform.forward * yellStrength);
+            if (oneHitWonder)
+            {
+                if(!hitEnemies.Contains(other.gameObject))
+                {
+                    hitEnemies.Add(other.gameObject);
+                    other.GetComponent<WorkerBehaviour>().HitByYell(transform.forward * yellStrength);
+                }
+            }
+            else
+            {
+                other.GetComponent<WorkerBehaviour>().HitByYell(transform.forward * yellStrength);
+            }            
         }
         else if(other.tag != "Yell")
         {

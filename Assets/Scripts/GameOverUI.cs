@@ -12,7 +12,7 @@ public class GameOverUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI dayText;
     
-    public void Setup(bool finishedLastDayOfJob)
+    public void Setup(bool finishedLastDayOfJob, int workersDemoralized)
     {
         // Day text
         string dayString = "";

@@ -1645,9 +1645,9 @@ MonoBehaviour:
   - {fileID: 343453802}
   - {fileID: 80295687}
   jobBlueprint:
-    secondsToHourRatio: 1
-    startHour: 11
-    endHour: 1
+    secondsToHourRatio: 5
+    startHour: 9
+    endHour: 5
     numOfDays: 5
     dailyBaseSalary: 1000
     workersToAddEveryDay: 0

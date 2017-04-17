@@ -24,6 +24,8 @@ public class JobManager : MonoBehaviour
     private GameObject[] resources;
     private GameObject[] foundations;
 
+    private int workersDemoralized;
+
     void Awake()
     {
         // @Note(colin): This is a singleton, google it or something
@@ -62,8 +64,10 @@ public class JobManager : MonoBehaviour
             CurrentGameState = new GameState();
         }
 
+        workersDemoralized = 0;
+
         // Clear the current worker count and the fill bar amount if it is the first day of a new job
-        if(CurrentGameState.currentDayNumber == 1)
+        if (CurrentGameState.currentDayNumber == 1)
         {
             CurrentGameState.currentWorkerCount = 0;
             CurrentGameState.currentJobFoundationCompletion = 0;
@@ -86,7 +90,7 @@ public class JobManager : MonoBehaviour
             availableSpawnPoints.Remove(spawnPoint);
 
             // Spawn the worker and assign values
-            Worker worker = Instantiate(workerPrefab, spawnPoint.transform.position, Quaternion.identity).GetComponent<Worker>();
+            WorkerMovement worker = Instantiate(workerPrefab, spawnPoint.transform.position, Quaternion.identity).GetComponent<WorkerMovement>();
             worker.targetResource = GetClosestResource(worker.transform.position);
             worker.targetFoundation = foundations[Random.Range(0, foundations.Length)];
         }     
@@ -118,6 +122,12 @@ public class JobManager : MonoBehaviour
         return resources[Random.Range(0, resources.Length)];
     }
 
+    public void EnemyLostMoral()
+    {
+        workersDemoralized++;
+        CurrentGameState.currentWorkerCount--;
+    }
+
     private void HandleDayEnd()
     {
         bool finishedLastDayOfJob = false;
@@ -136,7 +146,7 @@ public class JobManager : MonoBehaviour
         
         gameOverUI.gameObject.SetActive(true);
         Time.timeScale = 0; // added this, testing
-        gameOverUI.Setup(finishedLastDayOfJob);
+        gameOverUI.Setup(finishedLastDayOfJob, workersDemoralized);
     }
 
     void OnApplicationQuit()
