@@ -44,7 +44,7 @@ public class GameOverUI : MonoBehaviour
         }
     }
 
-    public void StartNextDay()
+    public void Btn_StartNextDay()
     {
 		// @Note(colin): This is assuming we are loading the same job as last time
 		sceneFader.FadeTo("Job" + JobManager.CurrentGameState.currentJobNumber);

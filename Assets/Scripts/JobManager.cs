@@ -58,8 +58,9 @@ public class JobManager : MonoBehaviour
     {
         List<GameObject> availableSpawnPoints = new List<GameObject>(spawnPoints);
 
-        // Spawn Enemies
         int enemiesToSpawn = 4;
+
+        // Spawn Enemies
         for (int i = 0; i < enemiesToSpawn; i++)
         {
             // Just incase we have more workers than spawn points
@@ -74,7 +75,7 @@ public class JobManager : MonoBehaviour
 
             // Spawn the worker and assign values
             WorkerAI worker = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity).GetComponent<WorkerAI>();
-            worker.targetResource = resources[Random.Range(0, resources.Length)];
+            worker.targetResource = GetClosestResource(worker.transform.position);
             worker.targetFoundation = foundations[Random.Range(0, foundations.Length)];
         }     
 
@@ -87,6 +88,24 @@ public class JobManager : MonoBehaviour
 
         // Start the day
         playerUI.StartCountingTime(jobBlueprint.startHour, jobBlueprint.endHour);
+    }
+
+    public GameObject GetClosestResource(Vector3 posToCheck)
+    {
+        float closestDistance = Mathf.Infinity;
+        GameObject closestResource = null;
+
+        for (int i = 0; i < resources.Length; i++)
+        {
+            float dist = Vector3.Distance(posToCheck, resources[i].transform.position);
+            if (dist < closestDistance)
+            {
+                closestDistance = dist;
+                closestResource = resources[i];
+            }
+        }
+
+        return closestResource;
     }
 
     public GameObject GetRandomResource()

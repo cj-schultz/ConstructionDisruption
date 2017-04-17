@@ -34,7 +34,7 @@ public class WorkerAI : MonoBehaviour
     private Rigidbody rb;
 
     private GameObject player;
-        
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -46,6 +46,12 @@ public class WorkerAI : MonoBehaviour
         resourceCount = 0;
         resourceGraphic.SetActive(false);
         navDest = NavDestination.MovingToResource;
+        AssignDestination();
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawCube(agent.pathEndPosition, Vector3.one);
     }
 
     void Update()
@@ -57,36 +63,25 @@ public class WorkerAI : MonoBehaviour
             ui.transform.eulerAngles = Vector3.zero;
             ui.transform.eulerAngles += Vector3.up * yrot;
         }
-       
+
         // Determine if the worker reached his destination
-        if (resourceCount > 0 && Vector3.Distance(transform.position, agent.pathEndPosition) <= 0.4f)
-        {            
+        if (!agent.pathPending && Vector3.Distance(transform.position, agent.pathEndPosition) <= 0.2f)
+        {
             if (navDest == NavDestination.MovingToFoundation)
             {
-                navDest = NavDestination.MovingToResource;
+                navDest = NavDestination.NotMoving;
                 Invoke("ExpendResource", depositTime);
-                targetResource = JobManager.Instance.GetRandomResource();
             }
             else if (navDest == NavDestination.MovingToResource)
             {
-                navDest = NavDestination.MovingToFoundation;
+                navDest = NavDestination.NotMoving;
                 Invoke("AcquireResource", collectTime);
             }
         }
-
-        //Set NavMeshAgent to correct destination based on mode
-        if (navDest == NavDestination.NotMoving)
+        else
         {
-            agent.destination = gameObject.transform.position;
-        }
-        if (navDest == NavDestination.MovingToResource)
-        {
-            agent.destination = targetResource.transform.position;
-        }
-        if (navDest == NavDestination.MovingToFoundation)
-        {
-            agent.destination = targetFoundation.transform.position;
-        }
+            AssignDestination();
+        }        
     }
 
     public void HitByYell(Vector3 force)
@@ -94,23 +89,47 @@ public class WorkerAI : MonoBehaviour
         rb.AddForce(force, ForceMode.Force);
     }
 
-    void AcquireResource()
+    private void AssignDestination()
+    {
+        //Set NavMeshAgent to correct destination based on mode
+        if (navDest == NavDestination.NotMoving)
+        {
+            agent.destination = gameObject.transform.position;
+        }
+        else if (navDest == NavDestination.MovingToResource)
+        {
+            agent.destination = targetResource.transform.position;
+        }
+        else if (navDest == NavDestination.MovingToFoundation)
+        {
+            agent.destination = targetFoundation.transform.position;            
+        }
+    }
+
+    private void AcquireResource()
     {
         resourceGraphic.SetActive(true);
+        
         if(targetResource.GetComponent<ResourceHandler>())
         {
             resourceCount = targetResource.GetComponent<ResourceHandler>().getResource();
         }        
+
         navDest = NavDestination.MovingToFoundation;
+        AssignDestination();
     }
 
-    void ExpendResource()
-    {
+    private void ExpendResource()
+    {        
         resourceGraphic.SetActive(false);
+
         if(targetFoundation.GetComponent<FoundationHandler>())
         {
             targetFoundation.GetComponent<FoundationHandler>().GiveResource(resourceCount);
-        }        
+        }
+
+        targetResource = JobManager.Instance.GetRandomResource();
         navDest = NavDestination.MovingToResource;
+        AssignDestination();
     }
 }

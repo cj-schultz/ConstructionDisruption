@@ -733,8 +733,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceGraphic: {fileID: 1310275170750506}
-  collectTime: 0
-  depositTime: 0
+  collectTime: 1
+  depositTime: 1
   ui: {fileID: 1549078728182624}
   targetResource: {fileID: 0}
   targetFoundation: {fileID: 0}

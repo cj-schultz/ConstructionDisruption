@@ -21,7 +21,7 @@ TagManager:
   - Enemy
   - Yell
   - Ground
-  - 
+  - IgnoreCollisionsWithEnemies
   - 
   - 
   - 
