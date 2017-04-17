@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Boo.Lang;
 
 public class GameOverUI : MonoBehaviour
 {
@@ -43,10 +44,7 @@ public class GameOverUI : MonoBehaviour
         newHighScoreText.SetActive(false);
 
         finishedLastDayOfJob = _finishedLastDayOfJob;
-        foundationWasCompleted = JobManager.CurrentGameState.currentJobFoundationCompletion >= 1;
-
-        // Shop setup
-        SetupShop();
+        foundationWasCompleted = JobManager.CurrentGameState.currentJobFoundationCompletion >= 1;        
 
         // Day text
         string dayString = "";
@@ -123,10 +121,30 @@ public class GameOverUI : MonoBehaviour
         {
             startNextButtonText.text = "start next day";
         }
+
+        // Shop setup
+        SetupShop();
     } 
 
     private void SetupShop()
     {
+        // "Use" any items that the user had the previous day
+        List<ShopItem> itemsToRemove = new List<ShopItem>();
+        for (int i = 0; i < JobManager.CurrentGameState.inventory.Count; i++)
+        {
+            int countIndex = IndexOfShopItem(JobManager.CurrentGameState.inventory[i]);
+            JobManager.CurrentGameState.inventoryCount[countIndex]--;
+            if(JobManager.CurrentGameState.inventoryCount[countIndex] <= 0)
+            {
+                JobManager.CurrentGameState.inventoryCount[countIndex] = 0;
+                itemsToRemove.Add(JobManager.CurrentGameState.inventory[i]);
+            }
+        }
+        for (int i = 0; i < itemsToRemove.Count; i++)
+        {
+            JobManager.CurrentGameState.inventory.Remove(itemsToRemove[i]);
+        }        
+
         currentSelectedShopItemIndex = -1;
         descriptionText.text = "";
         buyButton.interactable = false;
@@ -135,21 +153,47 @@ public class GameOverUI : MonoBehaviour
         constructionDisriptionText.color = Color.white;
         yeezysText.color = Color.white;
 
+        UpdateInventoryText();
+    }
+
+    private void UpdateInventoryText()
+    {
         inventoryItem1.text = "";
         inventoryItem2.text = "";
         inventoryItem3.text = "";
-        // @TODO: Setup inventory
-        switch (JobManager.CurrentGameState.inventory.Count)
+
+        TextMeshProUGUI[] texts = new TextMeshProUGUI[3];
+        texts[0] = inventoryItem1;
+        texts[1] = inventoryItem2;
+        texts[2] = inventoryItem3;
+
+        for (int i = 0; i < JobManager.CurrentGameState.inventory.Count; i++)
         {
-            case 0:                                
-                break;
-        }
+            switch(JobManager.CurrentGameState.inventory[i])
+            {
+                case ShopItem.CoughDrop:
+                    texts[i].text = "Cough Drop (" + JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.CoughDrop)] + ")";
+                    break;
+                case ShopItem.ConstructionDisruption:
+                    texts[i].text = "Construction Disruption (" + JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.ConstructionDisruption)] + ")";
+                    break;
+                case ShopItem.Yeezys:
+                    texts[i].text = "Yeezys (" + JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.Yeezys)] + ")";
+                    break;
+            }
+        }        
     }
 
     public void Btn_SelectShopItem(int itemIndex)
     {
         currentSelectedShopItemIndex = itemIndex;
-        buyButton.interactable = true;
+
+        int costOfItem = CostOfItem(currentSelectedShopItemIndex);
+
+        if(JobManager.CurrentGameState.currentMoney >= costOfItem)
+        {
+            buyButton.interactable = true;
+        }        
 
         coughDropsText.color = Color.white;
         constructionDisriptionText.color = Color.white;
@@ -174,20 +218,77 @@ public class GameOverUI : MonoBehaviour
 
     public void Btn_BuySelectedShopItem()
     {
-        int amountToSpend = 0;
+        int amountToSpend = CostOfItem(currentSelectedShopItemIndex);
+
+        JobManager.CurrentGameState.currentMoney -= amountToSpend;
 
         switch(currentSelectedShopItemIndex)
         {
             case 1: // Cough Drops
-                amountToSpend = 100;
+                if(!JobManager.CurrentGameState.inventory.Contains(ShopItem.CoughDrop))
+                {
+                    JobManager.CurrentGameState.inventory.Add(ShopItem.CoughDrop);
+                }
+                JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.CoughDrop)]++;
                 break;
             case 2: // Construction Distruption
-                amountToSpend = 200;
+                if (!JobManager.CurrentGameState.inventory.Contains(ShopItem.ConstructionDisruption))
+                {
+                    JobManager.CurrentGameState.inventory.Add(ShopItem.ConstructionDisruption);
+                }
+                JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.ConstructionDisruption)]++;
                 break;
             case 3: // Yeezies
-                amountToSpend= 150;
+                if (!JobManager.CurrentGameState.inventory.Contains(ShopItem.Yeezys))
+                {
+                    JobManager.CurrentGameState.inventory.Add(ShopItem.Yeezys);
+                }
+                JobManager.CurrentGameState.inventoryCount[IndexOfShopItem(ShopItem.Yeezys)]++;                
                 break;
         }
+
+        UpdateInventoryText();
+        // @TODO: Update current amount of money text
+    }
+
+    private int CostOfItem(int itemIndex)
+    {
+        int cost = 0;
+
+        switch (currentSelectedShopItemIndex)
+        {
+            case 1: // Cough Drops
+                cost = 100;
+                break;
+            case 2: // Construction Distruption
+                cost = 200;
+                break;
+            case 3: // Yeezies
+                cost = 150;
+                break;
+        }
+
+        return cost;
+    }
+
+    private int IndexOfShopItem(ShopItem item)
+    {
+        int i = 0;
+
+        switch(item)
+        {
+            case ShopItem.CoughDrop:
+                i = 0;
+                break;
+            case ShopItem.ConstructionDisruption:
+                i = 1;
+                break;
+            case ShopItem.Yeezys:
+                i = 2;
+                break;
+        }
+
+        return i;
     }
 
     public void Btn_StartNextDay()

@@ -23,7 +23,7 @@ public class GameState
         currentJobFoundationCompletion = 0;
         inventory = new List<ShopItem>();
         inventoryCount = new int[3];
-        inventoryCount[0] = inventoryCount[1] = inventoryCount[2] = 0;
+        inventoryCount[0] = inventoryCount[1] = inventoryCount[2] = 0;        
     }
 }
 

@@ -128,6 +128,8 @@ public class MenuItemSelector : MonoBehaviour
                     break;
                 case 1: // Continue
                     LoadGameStateFromDisk();
+                    Debug.Log(JobManager.CurrentGameState.inventory.Count);
+                    Debug.Log(JobManager.CurrentGameState.inventoryCount[1]);
                     sceneFader.FadeTo("Job" + JobManager.CurrentGameState.currentJobNumber);
                     break;
                 case 2: // Settings
