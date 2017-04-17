@@ -2463,7 +2463,7 @@ MonoBehaviour:
     secondsToHourRatio: 5
     startHour: 9
     endHour: 5
-    numOfDays: 3
+    numOfDays: 5
     dailyBaseSalary: 1000
     workersToAddEveryDay: 3
   sceneFader: {fileID: 1697302371}
