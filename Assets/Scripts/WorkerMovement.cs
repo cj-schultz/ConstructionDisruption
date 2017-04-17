@@ -109,7 +109,7 @@ public class WorkerMovement : MonoBehaviour
 
             if(i == 29 && point == Vector3.zero)
             {
-                Debug.LogError("NOOOOOOO");
+                // Debug.LogError("NOOOOOOO");
             }
         }
 
